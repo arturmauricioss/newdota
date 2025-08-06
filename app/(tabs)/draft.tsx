@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+    Image,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -11,6 +12,7 @@ import BanSlot from "../../components/BanSlot";
 import HeroSlot from "../../components/HeroSlot";
 import PlayerSelect from "../../components/PlayerSelect";
 import SuggestedHeroes from "../../components/SugestedHeroes";
+import heroMeta from "../../public/data/meta.json"; // ← ajusta o path se necessário
 import { getHeroSuggestions } from "../../public/data/utils/draftLogic";
 import { playerNames } from "../../public/data/utils/playerNames";
 
@@ -19,11 +21,30 @@ type SlotSelection = {
   index: number;
   playerId?: number;
 };
+type HeroMeta = {
+  name: string;
+  img: string;
+  pub_pick: number;
+  pub_win: number;
+  pro_pick?: number;
+  pro_ban?: number;
+};
 
 type PlayerProfile = {
   preferences?: string[];
 };
 const availablePlayers: string[] = ["Any", ...Object.values(playerNames)];
+const getSortedHeroImages = (): { name: string; img: string; winRate: number; metaScore: number }[] => {
+  return heroMeta
+    .map((hero: HeroMeta) => ({
+      name: hero.name,
+      img: `https://cdn.cloudflare.steamstatic.com${hero.img}`,
+      winRate: hero.pub_pick > 0 ? hero.pub_win / hero.pub_pick : 0,
+      metaScore: (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0),
+    }))
+    .sort((a, b) => b.metaScore - a.metaScore); // ← agora ordena pelo metaScore
+};
+
 
 
 // Estado inicial para 5 jogadores sem preferências
@@ -36,7 +57,7 @@ export default function DraftPage() {
   const [enemyTeam, setEnemyTeam] = useState<(string | null)[]>(defaultNullArray(5));
   const [bans, setBans] = useState<(string | null)[]>(defaultNullArray(10));
   const [selectedSlot, setSelectedSlot] = useState<SlotSelection | null>(null);
-
+  const [metaRankedHeroes] = useState(getSortedHeroImages());
   const suggestions = getHeroSuggestions({
     allyTeam,
     enemyTeam,
@@ -107,6 +128,19 @@ export default function DraftPage() {
 
         {/* 🔮 Sugestões */}
         <SuggestedHeroes heroes={suggestions} />
+        {/* 🖼️ Todos os Heróis */}
+            <View style={styles.heroGridSection}>
+            <Text style={styles.subTitle}>Todos os Heróis (Ranking do Meta)</Text>
+            <View style={styles.heroGrid}>
+                {metaRankedHeroes.map((hero) => (
+                <Image
+                    key={hero.name}
+                    source={{ uri: hero.img }}
+                    style={styles.heroImage}
+                />
+                ))}
+            </View>
+            </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -156,4 +190,22 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 16,
   },
+  heroGridSection: {
+  marginVertical: 16,
+  width: "100%",
+  alignItems: "center",
+},
+heroGrid: {
+  flexDirection: "row",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  gap: 8,
+},
+heroImage: {
+  width: 64,
+  height: 64,
+  borderRadius: 8,
+  resizeMode: "cover",
+}
+
 });
