@@ -73,25 +73,49 @@ const Synergy = () => {
             </div>
           </div>
 
-          <div className="synergy-subsection">
-            <h4>⚔️ Top 10 Counters</h4>
-            <div className="synergy-list">
-              {synergy.vs
-                .sort((a, b) => b.synergy - a.synergy)
-                .slice(0, 10)
-                .map((pair) => {
-                  const enemy = heroes.find((h) => h.id === pair.heroId2);
-                  if (!enemy) return null;
-                  return (
-                    <div key={enemy.id} className="synergy-item">
-                      <img src={enemy.image_url} alt={enemy.localized_name} className="partner-image" />
-                      <span className="synergy-score negative">-{pair.synergy.toFixed(2)}%</span>
-                      <p>{enemy.localized_name}</p>
-                    </div>
-                  );
-                })}
-            </div>
+{/* MELHOR CONTRA */}
+<div className="synergy-subsection">
+  <h4>⚔️ Top 10: Melhor Contra</h4>
+  <div className="synergy-list">
+    {synergy.vs
+      .filter((pair) => pair.synergy > 0)
+      .sort((a, b) => b.synergy - a.synergy)
+      .slice(0, 10)
+      .map((pair) => {
+        const enemy = heroes.find((h) => h.id === pair.heroId2);
+        if (!enemy) return null;
+        return (
+          <div key={enemy.id} className="synergy-item">
+            <img src={enemy.image_url} alt={enemy.localized_name} className="partner-image" />
+            <span className="synergy-score positive">+{pair.synergy.toFixed(2)}%</span>
+            <p>{enemy.localized_name}</p>
           </div>
+        );
+      })}
+  </div>
+</div>
+
+{/* PIOR CONTRA */}
+<div className="synergy-subsection">
+  <h4>☠️ Top 10: Pior Contra</h4>
+  <div className="synergy-list">
+    {synergy.vs
+      .filter((pair) => pair.synergy < 0)
+      .sort((a, b) => a.synergy - b.synergy)
+      .slice(0, 10)
+      .map((pair) => {
+        const enemy = heroes.find((h) => h.id === pair.heroId2);
+        if (!enemy) return null;
+        return (
+          <div key={enemy.id} className="synergy-item">
+            <img src={enemy.image_url} alt={enemy.localized_name} className="partner-image" />
+            <span className="synergy-score negative">{pair.synergy.toFixed(2)}%</span>
+            <p>{enemy.localized_name}</p>
+          </div>
+        );
+      })}
+  </div>
+</div>
         </div>
       )}
     </div>

@@ -29,7 +29,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'React',
 tabBarIcon: ({ color }: { color: string }) => (
   <IconSymbol size={28} name="person.3.fill" color={color} />
 ),
@@ -39,7 +39,7 @@ tabBarIcon: ({ color }: { color: string }) => (
     <Tabs.Screen
         name="synergy"
         options={{
-          title: 'Synergy',
+          title: 'Sinergia',
 tabBarIcon: ({ color }: { color: string }) => (
   <IconSymbol size={28} name="person.3.fill" color={color} />
 ),
@@ -57,7 +57,16 @@ tabBarIcon: ({ color }: { color: string }) => (
           <Tabs.Screen
       name="heroes"
       options={{
-        title: "Heroes",
+        title: "Heróis",
+tabBarIcon: ({ color }: { color: string }) => (
+  <IconSymbol size={28} name="person.3.fill" color={color} />
+),
+      }}
+    />
+              <Tabs.Screen
+      name="players"
+      options={{
+        title: "Jogadores",
 tabBarIcon: ({ color }: { color: string }) => (
   <IconSymbol size={28} name="person.3.fill" color={color} />
 ),

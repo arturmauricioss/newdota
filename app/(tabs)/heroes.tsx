@@ -19,7 +19,9 @@ fetch("/data/heroes_with_images.json") // Ajuste o caminho conforme seu projeto
   }, []);
 
   return (
+    <div>
     <div className="heroes-container">
+      <h2 className="heroes-title">Hérois</h2>
       {heroes.map((hero) => (
         <div key={hero.id} className="hero-card">
           <img src={hero.image_url} alt={hero.localized_name} className="hero-image" />
@@ -27,6 +29,7 @@ fetch("/data/heroes_with_images.json") // Ajuste o caminho conforme seu projeto
         </div>
       ))}
     </div>
+    <div className="heroes-botbar"></div></div>
   );
 };
 

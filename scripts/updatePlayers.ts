@@ -2,39 +2,8 @@ import fs from "fs";
 import fetch from "node-fetch";
 import path from "path";
 
-const players: Record<number, string> = {
-  150271786: "Avallon",
-  349788368: "Moura",
-  117971659: "Bigode",
-  151810911: "Fixão",
-  1099436573: "Alexandre",
-  182711567: "Mavrik",
-  157738281: "Bode",
-  100712161: "Mayo",
-  174193083: "Battz",
-  105470040: "Cebola",
-  88635515: "Kratus",
-  113999109: "Kanguru",
-  109817781: "Marley",
-  405921406: "Abracadabra",
-  313194291: "AlexOld",
-  192598340: "DodgeCoin",
-  200320174: "Dr.Stephan",
-  1066375785: "Foxy",
-  179644367: "Kelwin",
-  1071948454: "Licarco",
-  170367146: "Macarrão",
-  214333921: "Megan",
-  117004622: "Megaterium",
-  165724950: "OTioDoSuco",
-  1076286412: "PickyHipster",
-  127066684: "Spider",
-  336009148: "TesleKey",
-  115036909: "W1zrd",
-  334536657: "Winx",
-  360116352: "YYZ",
-  1507753674: "ZéDoCachimbo"
-};
+import { playerNames as players } from "../public/data/utils/playerNames";
+
 
 const outputDir = path.join(__dirname, "../public/data/players");
 
