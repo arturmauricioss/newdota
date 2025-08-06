@@ -27,9 +27,9 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
-        name="index"
+        name="draft"
         options={{
-          title: 'React',
+          title: 'Draft',
 tabBarIcon: ({ color }: { color: string }) => (
   <IconSymbol size={28} name="person.3.fill" color={color} />
 ),
@@ -72,6 +72,12 @@ tabBarIcon: ({ color }: { color: string }) => (
 ),
       }}
     />
+    <Tabs.Screen
+  name="index"
+  options={{
+    href: null, // ❌ remove da tab bar
+  }}
+/>
     </Tabs>
   );
 }
