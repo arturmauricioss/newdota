@@ -34,9 +34,9 @@ useEffect(() => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 8,
     alignItems: "center",
-    gap: 12
+    gap: 10
   },
   title: {
     fontSize: 24,
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: "#1e1e2f",
-    padding: 16,
+    padding: 12,
     borderRadius: 8,
     margin: 6,
-    minWidth: 120
+    minWidth: 40
   },
   cardText: {
     color: "#fff",

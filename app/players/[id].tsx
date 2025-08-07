@@ -105,8 +105,9 @@ export default function PlayerDetails() {
 const calculateRF = (games: number, win: number, meta?: MetaInfo) => {
   const winRate = games > 0 ? win / games : 0.5;
   const RP = calculateRP(games, win); 
-  const RM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
-  return (RP * 30 + RM * 20) - 25;
+  const rawRM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
+  const RM = rawRM / 100 - 10;
+  return (RP*4 + RM*2 )/6;
 };
 
 
@@ -176,9 +177,9 @@ const RM_B = metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0;
             <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("name")}>
               <Text style={styles.headerText}>Herói</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("games")}>
+            {/* <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("games")}>
               <Text style={styles.headerText}>Partidas</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("winRate")}>
               <Text style={styles.headerText}>Winrate</Text>
             </TouchableOpacity>
@@ -202,8 +203,8 @@ const RM_B = metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0;
 
             const RP = calculateRP(item.games, item.win);
 
-            const RM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
-
+            const rawRM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
+            const RM = rawRM / 100 - 10;
             const RF = calculateRF(item.games, item.win, meta);
 
 
@@ -211,13 +212,13 @@ const RM_B = metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0;
               <View key={item.hero_id} style={styles.row}>
                 <View style={styles.heroCell}>
                   <Image source={{ uri: hero?.image }} style={styles.heroImage} />
-                  <Text style={styles.heroName}>{hero?.name || item.hero_id}</Text>
+                  {/* <Text style={styles.heroName}>{hero?.name || item.hero_id}</Text> */}
                 </View>
-                <Text style={styles.cell}>{item.games}</Text>
-                <Text style={styles.cell}>{(winRateRaw * 100).toFixed(2)}%</Text>
-                <Text style={styles.cell}>{RP.toFixed(3)}</Text>
-                <Text style={styles.cell}>{RM.toFixed(0)}</Text>
-                <Text style={styles.cell}>{RF.toFixed(3)}</Text>
+                {/* <Text style={styles.cell}>{item.games}</Text> */}
+                <Text style={styles.cell}>{(winRateRaw * 100).toFixed(0)}%</Text>
+                <Text style={styles.cell}>{RP.toFixed(1)}</Text>
+                <Text style={styles.cell}>{RM.toFixed(1)}</Text>
+                <Text style={styles.cell}>{RF.toFixed(1)}</Text>
               </View>
             );
           })}
@@ -246,8 +247,8 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: "row",
     backgroundColor: "#393a4d",
-    paddingVertical: 10,
-    paddingHorizontal: 8
+    paddingVertical: 5,
+    paddingHorizontal: 4
   },
   headerCell: {
     flex: 1,
@@ -263,8 +264,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#2b2c3b",
-    paddingVertical: 10,
-    paddingHorizontal: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 4,
     borderBottomWidth: 1,
     borderBottomColor: "#444655"
   },
@@ -273,12 +274,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingHorizontal: 6 }, 
+    paddingHorizontal: 6 
+  }, 
   heroImage: { 
-    width: 36, 
+    width: 64, 
     height: 36, 
     resizeMode: "contain", 
-    marginRight: 8, 
+    marginRight: 6, 
     borderRadius: 4 
   }, 
   heroName: { 

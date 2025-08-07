@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "../style/meta.css";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 
 type MetaHero = {
   id: number;
@@ -35,60 +41,117 @@ const MetaTable = () => {
   }, []);
 
   const sortedHeroes = [...heroes].sort((a, b) => {
-let result = 0;
+    let result = 0;
 
-if (sortKey === "localized_name") {
-  result = a.localized_name.localeCompare(b.localized_name);
-} else {
-  const aVal = a[sortKey] as number;
-  const bVal = b[sortKey] as number;
-  result = aVal - bVal;
-}
+    if (sortKey === "localized_name") {
+      result = a.localized_name.localeCompare(b.localized_name);
+    } else {
+      const aVal = a[sortKey] as number;
+      const bVal = b[sortKey] as number;
+      result = aVal - bVal;
+    }
 
-return sortAsc ? result : -result;
+    return sortAsc ? result : -result;
   });
 
   const handleSort = (key: SortKey) => {
     if (key === sortKey) {
-      setSortAsc(!sortAsc); // inverte direção
+      setSortAsc(!sortAsc);
     } else {
       setSortKey(key);
-      setSortAsc(false); // padrão: decrescente
+      setSortAsc(false);
     }
   };
 
   return (
-    <div className="meta-table-container">
-      <h2>📋 Heróis do Meta</h2>
-      <table className="meta-table">
-<thead>
-  <tr>
-    <th> </th> {/* coluna da imagem sem título */}
-    <th onClick={() => handleSort("localized_name")}>Herói</th>
-    <th onClick={() => handleSort("winRate")}>Win Rate (%)</th>
-    <th onClick={() => handleSort("metaScore")}>Meta Score</th>
-  </tr>
-</thead>
-        <tbody>
-          {sortedHeroes.map((hero) => (
-            <tr key={hero.id}>
-                              <td>
-                <img
-                  src={`https://cdn.cloudflare.steamstatic.com${hero.img}`}
-                  alt={hero.localized_name}
-                  className="hero-img"
-                />
-              </td>
-              <td>{hero.localized_name}</td>
+    <ScrollView style={styles.container}>
+<View style={styles.headerRow}>
+  <Text style={styles.headerCell}>Herói</Text>
+    <Text style={[styles.headerCell, styles.secondColumnOffset]}>
+        Win Rate
+    </Text>
+  <Text style={styles.headerCell}>Meta Score</Text>
+</View>
 
-              <td>{hero.winRate}</td>
-              <td>{hero.metaScore}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+
+
+      {sortedHeroes.map((hero) => (
+<View key={hero.id} style={styles.row}>
+  <View style={styles.heroCell}>
+    <Image
+      source={{ uri: `https://cdn.cloudflare.steamstatic.com${hero.img}` }}
+      style={styles.heroImg}
+    />
+     <Text style={styles.heroName}>{hero.localized_name}</Text>
+  </View>
+  <Text style={[
+        styles.cell,
+        styles.secondColumnOffset
+      ]}>{hero.winRate}</Text>
+  <Text style={styles.cell}>{hero.metaScore}</Text>
+</View>
+
+      ))}
+    </ScrollView>
   );
 };
 
 export default MetaTable;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 12,
+    backgroundColor: "#1e1e2f",
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#f0f0f0",
+    marginBottom: 12,
+  },
+headerRow: {
+  flexDirection: "row",
+  borderBottomWidth: 1,
+  borderColor: "#444",
+  paddingBottom: 6,
+  marginBottom: 6,
+  alignItems: "center",
+},
+headerCell: {
+  flex: 1,
+  fontWeight: "bold",
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 6,
+    borderBottomWidth: 1,
+    borderColor: "#333",
+  },
+  cell: {
+    flex: 1,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  heroImg: {
+    width: 64,
+    height: 36,
+    marginRight: 6,
+    borderRadius: 4,
+  },
+  heroCell: {
+    flex: 1,
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  heroName: {
+    color: "#f0f0f0",
+    fontSize: 14,
+  },
+    secondColumnOffset: {
+    paddingLeft: 50,   // ajuste esse valor conforme a distância desejada
+  },
+});
