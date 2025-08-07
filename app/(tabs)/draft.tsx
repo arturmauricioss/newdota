@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -14,9 +14,9 @@ import HeroSlot from "../../components/HeroSlot";
 import PlayerSelect from "../../components/PlayerSelect";
 import heroMeta from "../../public/data/meta.json"; // ← ajusta o path se necessário
 import synergyMatrix from "../../public/data/synergyMatrix.json";
+import { calculateRP } from "../../public/data/utils/calculateRP";
 import { getHeroSuggestions } from "../../public/data/utils/draftLogic";
 import { playerNames } from "../../public/data/utils/playerNames";
-
 type SlotSelection = {
   type: "ally" | "enemy" | "ban";
   index: number;
@@ -57,11 +57,15 @@ type RankedHero = {
   totalSynergy: number;
   finalScore: number;
   displayScore: string;
+  playerRP: number;
 };
 
 type PlayerProfile = {
-  preferences?: string[];
+  name: string;
+  preferences: string[];
+  stats?: Record<number, number>; // ← adiciona isso
 };
+const availablePlayers: string[] = ["Any", ...Object.values(playerNames) as string[]];
 
 const getSynergyScore = (
   heroId: number,
@@ -95,16 +99,23 @@ const extractHeroIdFromImg = (imgUrl: string): number => {
   );
   return heroEntry?.id ?? 0;
 };
+export const calculateRPOnly = (games: number, win: number): number => {
+  const winRate = games > 0 ? win / games : 0.5;
+  const RP = (winRate - 1 / (games + 1) + 1) / 2;
+  return RP * 10; // ajuste o peso conforme necessário
+};
 
 
-const availablePlayers: string[] = ["Any", ...Object.values(playerNames)];
-const getSortedHeroImages = (
+  const getSortedHeroImages = (
   allyTeam: (string | null)[],
   enemyTeam: (string | null)[],
-  bans: (string | null)[]
+  bans: (string | null)[],
+  players: PlayerProfile[],
+  selectedSlot: SlotSelection | null
 ): RankedHero[] => {
-  const maxScore = Math.max(...heroMeta.map((h) => h.pro_pick ?? 0 + h.pro_ban ?? 0));
-  const minScore = Math.min(...heroMeta.map((h) => h.pro_pick ?? 0 + h.pro_ban ?? 0));
+  const maxScore = Math.max(...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0)));
+  const minScore = Math.min(...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0)));
+
   const rawHeroes = (heroMeta as HeroMeta[]).map((hero) => {
     const heroId = hero.id;
     const synergyWithAlly = getSynergyScore(heroId, allyTeam, "with");
@@ -114,7 +125,19 @@ const getSortedHeroImages = (
     const totalSynergy = synergyWithAlly + synergyVsEnemy + synergyFromBans;
     const rawMetaScore = (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0);
     const normalizedMeta = parseFloat(normalizeMetaScore(rawMetaScore, minScore, maxScore));
-    const finalScore = normalizedMeta + totalSynergy;
+
+let playerRP = 0;
+if (
+  selectedSlot?.type === "ally" &&
+  selectedSlot.playerId !== undefined &&
+  players[selectedSlot.playerId]?.preferences?.[0] !== "Any"
+) {
+  const rawRP = players[selectedSlot.playerId]?.stats?.[heroId];
+  playerRP = typeof rawRP === "number" ? rawRP : 0;
+}
+
+
+    const finalScore = normalizedMeta + totalSynergy + playerRP;
 
     return {
       name: hero.name,
@@ -127,6 +150,7 @@ const getSortedHeroImages = (
       totalSynergy,
       finalScore,
       displayScore: normalizeMetaScore(rawMetaScore, minScore, maxScore),
+      playerRP,
     };
   });
 
@@ -139,7 +163,7 @@ const normalizeMetaScore = (
   max: number
 ): string => {
   if (max === min) return "50.0%";
-const normalized = ((((((score - min) * 100) / (max - min)) )) / 10 ) - 10;
+const normalized = (((((((score - min) * 100) / (max - min)) )) / 10 )-5) ;
   return `${normalized.toFixed(1)}`; // sempre exibe 1 casa decimal
 };
 
@@ -161,9 +185,16 @@ export default function DraftPage() {
   );
   const [bans, setBans] = useState<(string | null)[]>(defaultNullArray(10));
   const [selectedSlot, setSelectedSlot] = useState<SlotSelection | null>(null);
-const baseRankedHeroes = useMemo(() => {
-  return getSortedHeroImages(allyTeam, enemyTeam, bans);
-}, [allyTeam, enemyTeam, bans]);
+const [baseRankedHeroes, setBaseRankedHeroes] = useState<RankedHero[]>([]);
+const availablePlayers = Object.entries(playerNames).map(([id, name]) => ({
+  id: Number(id),
+  name,
+}));
+useEffect(() => {
+  const ranked = getSortedHeroImages(allyTeam, enemyTeam, bans, players, selectedSlot);
+  setBaseRankedHeroes(ranked);
+}, [allyTeam, enemyTeam, bans, players, selectedSlot]);
+
 
 
   const suggestions = getHeroSuggestions({
@@ -199,23 +230,42 @@ const sortedHeroes = useMemo<RankedHero[]>(() => {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.heading}>Draft Personalizado</Text>
 
+
         {/* 🎮 Players */}
-        <View style={styles.playersRow}>
-          {players.map((player, i) => (
-            <PlayerSelect
-              key={i}
-              value={player.preferences?.[0] ?? "Any"}
-              onChange={(newVal) =>
-                setPlayers((prev) =>
-                  prev.map((p, idx) =>
-                    idx === i ? { ...p, preferences: [newVal] } : p
-                  )
-                )
-              }
-              options={availablePlayers}
-            />
-          ))}
-        </View>
+<View style={styles.playersRow}>
+  {players.map((player, i) => (
+    <PlayerSelect
+      key={i}
+      value={player.preferences?.[0] ? Number(player.preferences[0]) : null}
+      onChange={async (playerId) => {
+        let stats: Record<number, number> = {};
+
+        try {
+          const res = await fetch(`/data/players/${playerId}.json`);
+          const data = await res.json();
+
+          stats = {};
+
+
+data.forEach((entry: { hero_id: number; games: number; win: number }) => {
+  stats[entry.hero_id] = calculateRP(entry.games, entry.win);
+});
+
+        } catch (err) {
+          console.error("Erro ao carregar stats do jogador:", err);
+        }
+
+        setPlayers((prev) =>
+          prev.map((p, idx) =>
+            idx === i ? { ...p, preferences: [String(playerId)], stats } : p
+          )
+        );
+      }}
+      options={availablePlayers}
+    />
+  ))}
+</View>
+
 
         {/* 🛡️ Ally & Enemy Teams */}
         <View style={styles.teamSection}>
@@ -293,8 +343,7 @@ const sortedHeroes = useMemo<RankedHero[]>(() => {
     <View>
       {/* Cabeçalho */}
 <View style={styles.tableHeader}>
-  <View style={styles.tableHeaderCell} /> {/* célula vazia para imagem */}
-
+  
   <Text
     style={styles.tableHeaderCell}
     onPress={() => {
@@ -354,6 +403,15 @@ const sortedHeroes = useMemo<RankedHero[]>(() => {
   >
     Sin {sortKey === "totalSynergy" ? (sortAsc ? "↑" : "↓") : ""}
   </Text>
+<Text
+  style={styles.tableHeaderCell}
+  onPress={() => {
+    setSortKey("playerRP");
+    setSortAsc((prev) => sortKey === "playerRP" ? !prev : false);
+  }}
+>
+ RP{sortKey === "playerRP" ? (sortAsc ? "↑" : "↓") : ""}
+</Text>
 
   <Text
     style={styles.tableHeaderCell}
@@ -368,7 +426,7 @@ const sortedHeroes = useMemo<RankedHero[]>(() => {
 
 
       {/* Linhas */}
-      {baseRankedHeroes
+      {sortedHeroes
         .filter((h) => ![...allyTeam, ...enemyTeam, ...bans].includes(h.img))
         .map((hero: RankedHero) => (
           <TouchableOpacity
@@ -411,6 +469,10 @@ const sortedHeroes = useMemo<RankedHero[]>(() => {
             <Text style={styles.tableCell}>
               {hero.totalSynergy.toFixed(1)}
             </Text>
+            <Text style={styles.tableCell}>
+              {hero.playerRP.toFixed(1)}
+            </Text>
+
             <Text style={styles.tableCell}>
               {hero.finalScore.toFixed(1)}
             </Text>
@@ -497,7 +559,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   tableHeaderCell: {
-    width: 80,
+    width: 120,
     fontWeight: "bold",
     fontSize: 14,
     color: "#ccc",

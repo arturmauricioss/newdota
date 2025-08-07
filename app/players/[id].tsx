@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import { calculateRP } from "../../public/data/utils/calculateRP";
 import { playerNames } from "../../public/data/utils/playerNames";
-
 type HeroStats = {
   hero_id: number;
   games: number;
@@ -25,6 +25,8 @@ type HeroInfo = {
 type MetaInfo = {
   winRate: number;
   pub_pick: number;
+  pro_pick?: number;
+  pro_ban?: number;
 };
 
 type SortKey = "name" | "winRate" | "games" | "RP" | "RM" | "RF";
@@ -74,7 +76,9 @@ export default function PlayerDetails() {
               : 0;
           metaMapProcessed[metaHero.id] = {
             winRate: winRateMeta,
-            pub_pick: metaHero.pub_pick
+            pub_pick: metaHero.pub_pick,
+            pro_pick: metaHero.pro_pick,
+            pro_ban: metaHero.pro_ban
           };
         });
         setMetaMap(metaMapProcessed);
@@ -97,56 +101,69 @@ export default function PlayerDetails() {
     }
   };
 
+// Adicione esta função utilitária dentro do componente ou fora, como preferir
+const calculateRF = (games: number, win: number, meta?: MetaInfo) => {
+  const winRate = games > 0 ? win / games : 0.5;
+  const RP = calculateRP(games, win); 
+  const RM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
+  return (RP * 30 + RM * 20) - 25;
+};
+
+
   const sortedStats = [...stats].sort((a, b) => {
-    const heroA = heroes[a.hero_id];
-    const heroB = heroes[b.hero_id];
-    const winRateA = a.win / a.games;
-    const winRateB = b.win / b.games;
+  const heroA = heroes[a.hero_id];
+  const heroB = heroes[b.hero_id];
 
-    const RP_A = winRateA - 1 / (a.games + 1);
-    const RP_B = winRateB - 1 / (b.games + 1);
+  const winRateA = a.games > 0 ? a.win / a.games : 0.5;
+  const winRateB = b.games > 0 ? b.win / b.games : 0.5;
 
-    const metaA = metaMap[a.hero_id];
-    const metaB = metaMap[b.hero_id];
+  const RP_A = calculateRP(a.games, a.win);
+  const RP_B = calculateRP(b.games, b.win);
 
-    const RM_A = metaA ? metaA.winRate / 100 - 1 / (metaA.pub_pick + 1) : 0;
-    const RM_B = metaB ? metaB.winRate / 100 - 1 / (metaB.pub_pick + 1) : 0;
 
-    const RF_A = (RP_A * 3 + RM_A * 2) / 5;
-    const RF_B = (RP_B * 3 + RM_B * 2) / 5;
 
-    let valA = 0;
-    let valB = 0;
+  const metaA = metaMap[a.hero_id];
+  const metaB = metaMap[b.hero_id];
 
-    switch (sortKey) {
-      case "name":
-        return sortAsc
-          ? (heroA?.name || "").localeCompare(heroB?.name || "")
-          : (heroB?.name || "").localeCompare(heroA?.name || "");
-      case "games":
-        valA = a.games;
-        valB = b.games;
-        break;
-      case "winRate":
-        valA = winRateA;
-        valB = winRateB;
-        break;
-      case "RP":
-        valA = RP_A;
-        valB = RP_B;
-        break;
-      case "RM":
-        valA = RM_A;
-        valB = RM_B;
-        break;
-      case "RF":
-        valA = RF_A;
-        valB = RF_B;
-        break;
-    }
+const RM_A = metaA ? (metaA.pro_pick ?? 0) + (metaA.pro_ban ?? 0) : 0;
+const RM_B = metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0;
 
-    return sortAsc ? valA - valB : valB - valA;
-  });
+  const RF_A = calculateRF(a.games, a.win, metaA);
+  const RF_B = calculateRF(b.games, b.win, metaB);
+
+  let valA = 0;
+  let valB = 0;
+
+  switch (sortKey) {
+    case "name":
+      return sortAsc
+        ? (heroA?.name || "").localeCompare(heroB?.name || "")
+        : (heroB?.name || "").localeCompare(heroA?.name || "");
+    case "games":
+      valA = a.games;
+      valB = b.games;
+      break;
+    case "winRate":
+      valA = winRateA;
+      valB = winRateB;
+      break;
+    case "RP":
+      valA = RP_A;
+      valB = RP_B;
+      break;
+    case "RM":
+      valA = RM_A;
+      valB = RM_B;
+      break;
+    case "RF":
+      valA = RF_A;
+      valB = RF_B;
+      break;
+  }
+
+  return sortAsc ? valA - valB : valB - valA;
+});
+
 
   return (
     <ScrollView style={styles.container}>
@@ -183,9 +200,12 @@ export default function PlayerDetails() {
             const hasGames = item.games > 0;
             const winRateRaw = hasGames ? item.win / item.games : 0.5;
 
-            const RP = (winRateRaw - 1 / (item.games + 1) + 1) / 2;
-            const RM = meta ? meta.winRate / 100 - 1 / (meta.pub_pick + 1) : 0;
-            const RF = (RP * 3 + RM * 2) / 5;
+            const RP = calculateRP(item.games, item.win);
+
+            const RM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
+
+            const RF = calculateRF(item.games, item.win, meta);
+
 
             return (
               <View key={item.hero_id} style={styles.row}>
@@ -196,7 +216,7 @@ export default function PlayerDetails() {
                 <Text style={styles.cell}>{item.games}</Text>
                 <Text style={styles.cell}>{(winRateRaw * 100).toFixed(2)}%</Text>
                 <Text style={styles.cell}>{RP.toFixed(3)}</Text>
-                <Text style={styles.cell}>{RM.toFixed(3)}</Text>
+                <Text style={styles.cell}>{RM.toFixed(0)}</Text>
                 <Text style={styles.cell}>{RF.toFixed(3)}</Text>
               </View>
             );
