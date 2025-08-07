@@ -65,8 +65,8 @@ const normalizeMetaScore = (
   max: number
 ): string => {
   if (max === min) return "50.0%";
-  const normalized = 40 + ((score - min) * (60 - 40)) / (max - min);
-  return `${normalized.toFixed(1)}%`; // sempre exibe 1 casa decimal
+const normalized = ((((score - min) * 100) / (max - min)) / 5) - 10;
+  return `${normalized.toFixed(1)}`; // sempre exibe 1 casa decimal
 };
 
 const getHeroDisplayName = (rawName: string) => {
