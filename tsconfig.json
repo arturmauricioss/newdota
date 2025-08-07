@@ -6,6 +6,7 @@
     "moduleResolution": "NodeNext", // ← compatível
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true, 
     "strict": true,
     "paths": {
       "@/*": ["./*"]
