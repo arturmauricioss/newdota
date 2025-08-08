@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from "react-native";
 
@@ -61,45 +62,54 @@ useEffect(() => {
     }
   };
 
-  return (
-    <ScrollView style={styles.container}>
-<View style={styles.headerRow}>
-  <Text style={styles.headerCell}>Herói</Text>
-    <Text style={[styles.headerCell, styles.secondColumnOffset]}>
-        Win Rate
-    </Text>
-  <Text style={styles.headerCell}>Meta Score</Text>
-</View>
-
-
+return (
+  <ScrollView style={styles.scroll}>
+    <View style={styles.container}>
+      <View style={styles.headerRow}>
+        <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("localized_name")}>
+          <Text style={styles.headerText}>Herói</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.headerCell, styles.secondColumnOffset]}
+          onPress={() => handleSort("winRate")}
+        >
+          <Text style={styles.headerText}>Win Rate</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("metaScore")}>
+          <Text style={styles.headerText}>Meta Score</Text>
+        </TouchableOpacity>
+      </View>
 
       {sortedHeroes.map((hero) => (
-<View key={hero.id} style={styles.row}>
-  <View style={styles.heroCell}>
-    <Image
-      source={{ uri: `https://cdn.cloudflare.steamstatic.com${hero.img}` }}
-      style={styles.heroImg}
-    />
-     <Text style={styles.heroName}>{hero.localized_name}</Text>
-  </View>
-  <Text style={[
-        styles.cell,
-        styles.secondColumnOffset
-      ]}>{hero.winRate}</Text>
-  <Text style={styles.cell}>{hero.metaScore}</Text>
-</View>
-
+        <View key={hero.id} style={styles.row}>
+          <View style={styles.heroCell}>
+            <Image
+              source={{ uri: `https://cdn.cloudflare.steamstatic.com${hero.img}` }}
+              style={styles.heroImg}
+            />
+            <Text style={styles.heroName}>{hero.localized_name}</Text>
+          </View>
+          <Text style={[styles.cell, styles.secondColumnOffset]}>{hero.winRate}</Text>
+          <Text style={styles.cell}>{hero.metaScore}</Text>
+        </View>
       ))}
-    </ScrollView>
-  );
+    </View>
+  </ScrollView>
+);
+
+
 };
 
 export default MetaTable;
 
 const styles = StyleSheet.create({
   container: {
+  
     padding: 12,
     backgroundColor: "#1e1e2f",
+    maxWidth:600,
+    width:"100%",
+      alignSelf: "center",
   },
   title: {
     fontSize: 22,
@@ -152,4 +162,13 @@ headerCell: {
     secondColumnOffset: {
     paddingLeft: 50,   // ajuste esse valor conforme a distância desejada
   },
+  headerText: {
+  fontWeight: "bold",
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+scroll: {
+  flex: 1,
+  backgroundColor: "#1e1e2f",
+},
 });
