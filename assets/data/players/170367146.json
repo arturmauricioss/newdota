@@ -1,0 +1,1262 @@
+[
+  {
+    "hero_id": 8,
+    "last_played": 1754266350,
+    "games": 659,
+    "win": 331,
+    "with_games": 456,
+    "with_win": 235,
+    "against_games": 786,
+    "against_win": 381
+  },
+  {
+    "hero_id": 44,
+    "last_played": 1754059161,
+    "games": 458,
+    "win": 234,
+    "with_games": 474,
+    "with_win": 223,
+    "against_games": 768,
+    "against_win": 364
+  },
+  {
+    "hero_id": 35,
+    "last_played": 1752700674,
+    "games": 294,
+    "win": 168,
+    "with_games": 725,
+    "with_win": 353,
+    "against_games": 889,
+    "against_win": 438
+  },
+  {
+    "hero_id": 21,
+    "last_played": 1748889319,
+    "games": 266,
+    "win": 133,
+    "with_games": 376,
+    "with_win": 183,
+    "against_games": 425,
+    "against_win": 205
+  },
+  {
+    "hero_id": 76,
+    "last_played": 1749020128,
+    "games": 254,
+    "win": 114,
+    "with_games": 219,
+    "with_win": 97,
+    "against_games": 248,
+    "against_win": 124
+  },
+  {
+    "hero_id": 6,
+    "last_played": 1753827231,
+    "games": 240,
+    "win": 121,
+    "with_games": 317,
+    "with_win": 167,
+    "against_games": 542,
+    "against_win": 267
+  },
+  {
+    "hero_id": 1,
+    "last_played": 1754055535,
+    "games": 230,
+    "win": 108,
+    "with_games": 211,
+    "with_win": 104,
+    "against_games": 408,
+    "against_win": 195
+  },
+  {
+    "hero_id": 104,
+    "last_played": 1754416242,
+    "games": 194,
+    "win": 98,
+    "with_games": 565,
+    "with_win": 306,
+    "against_games": 726,
+    "against_win": 351
+  },
+  {
+    "hero_id": 63,
+    "last_played": 1754097090,
+    "games": 189,
+    "win": 97,
+    "with_games": 214,
+    "with_win": 96,
+    "against_games": 270,
+    "against_win": 135
+  },
+  {
+    "hero_id": 36,
+    "last_played": 1754397077,
+    "games": 185,
+    "win": 89,
+    "with_games": 362,
+    "with_win": 181,
+    "against_games": 369,
+    "against_win": 154
+  },
+  {
+    "hero_id": 138,
+    "last_played": 1753805026,
+    "games": 183,
+    "win": 106,
+    "with_games": 40,
+    "with_win": 15,
+    "against_games": 50,
+    "against_win": 24
+  },
+  {
+    "hero_id": 94,
+    "last_played": 1754002391,
+    "games": 164,
+    "win": 76,
+    "with_games": 216,
+    "with_win": 117,
+    "against_games": 314,
+    "against_win": 144
+  },
+  {
+    "hero_id": 93,
+    "last_played": 1753834145,
+    "games": 142,
+    "win": 68,
+    "with_games": 347,
+    "with_win": 178,
+    "against_games": 585,
+    "against_win": 288
+  },
+  {
+    "hero_id": 99,
+    "last_played": 1746641646,
+    "games": 133,
+    "win": 70,
+    "with_games": 381,
+    "with_win": 195,
+    "against_games": 495,
+    "against_win": 232
+  },
+  {
+    "hero_id": 16,
+    "last_played": 1754400732,
+    "games": 125,
+    "win": 71,
+    "with_games": 269,
+    "with_win": 135,
+    "against_games": 221,
+    "against_win": 113
+  },
+  {
+    "hero_id": 54,
+    "last_played": 1754004761,
+    "games": 123,
+    "win": 64,
+    "with_games": 199,
+    "with_win": 85,
+    "against_games": 354,
+    "against_win": 188
+  },
+  {
+    "hero_id": 64,
+    "last_played": 1754225836,
+    "games": 122,
+    "win": 76,
+    "with_games": 493,
+    "with_win": 263,
+    "against_games": 489,
+    "against_win": 237
+  },
+  {
+    "hero_id": 11,
+    "last_played": 1753798625,
+    "games": 121,
+    "win": 59,
+    "with_games": 220,
+    "with_win": 92,
+    "against_games": 318,
+    "against_win": 161
+  },
+  {
+    "hero_id": 75,
+    "last_played": 1742465536,
+    "games": 114,
+    "win": 74,
+    "with_games": 370,
+    "with_win": 187,
+    "against_games": 424,
+    "against_win": 199
+  },
+  {
+    "hero_id": 4,
+    "last_played": 1749740360,
+    "games": 113,
+    "win": 55,
+    "with_games": 211,
+    "with_win": 111,
+    "against_games": 299,
+    "against_win": 143
+  },
+  {
+    "hero_id": 48,
+    "last_played": 1748246144,
+    "games": 109,
+    "win": 47,
+    "with_games": 179,
+    "with_win": 98,
+    "against_games": 277,
+    "against_win": 131
+  },
+  {
+    "hero_id": 58,
+    "last_played": 1733971431,
+    "games": 109,
+    "win": 55,
+    "with_games": 75,
+    "with_win": 40,
+    "against_games": 130,
+    "against_win": 65
+  },
+  {
+    "hero_id": 41,
+    "last_played": 1748306380,
+    "games": 106,
+    "win": 55,
+    "with_games": 293,
+    "with_win": 142,
+    "against_games": 520,
+    "against_win": 259
+  },
+  {
+    "hero_id": 25,
+    "last_played": 1753792645,
+    "games": 105,
+    "win": 39,
+    "with_games": 294,
+    "with_win": 122,
+    "against_games": 357,
+    "against_win": 198
+  },
+  {
+    "hero_id": 2,
+    "last_played": 1751219784,
+    "games": 99,
+    "win": 46,
+    "with_games": 516,
+    "with_win": 266,
+    "against_games": 642,
+    "against_win": 292
+  },
+  {
+    "hero_id": 60,
+    "last_played": 1746653065,
+    "games": 86,
+    "win": 45,
+    "with_games": 124,
+    "with_win": 73,
+    "against_games": 154,
+    "against_win": 61
+  },
+  {
+    "hero_id": 101,
+    "last_played": 1753188240,
+    "games": 86,
+    "win": 38,
+    "with_games": 319,
+    "with_win": 158,
+    "against_games": 343,
+    "against_win": 176
+  },
+  {
+    "hero_id": 14,
+    "last_played": 1754260895,
+    "games": 80,
+    "win": 34,
+    "with_games": 867,
+    "with_win": 436,
+    "against_games": 1135,
+    "against_win": 548
+  },
+  {
+    "hero_id": 29,
+    "last_played": 1750775679,
+    "games": 78,
+    "win": 41,
+    "with_games": 186,
+    "with_win": 90,
+    "against_games": 250,
+    "against_win": 120
+  },
+  {
+    "hero_id": 70,
+    "last_played": 1753968341,
+    "games": 78,
+    "win": 37,
+    "with_games": 166,
+    "with_win": 87,
+    "against_games": 313,
+    "against_win": 178
+  },
+  {
+    "hero_id": 18,
+    "last_played": 1753820670,
+    "games": 77,
+    "win": 36,
+    "with_games": 170,
+    "with_win": 84,
+    "against_games": 281,
+    "against_win": 143
+  },
+  {
+    "hero_id": 47,
+    "last_played": 1727138901,
+    "games": 75,
+    "win": 38,
+    "with_games": 277,
+    "with_win": 130,
+    "against_games": 346,
+    "against_win": 172
+  },
+  {
+    "hero_id": 17,
+    "last_played": 1696775519,
+    "games": 70,
+    "win": 21,
+    "with_games": 188,
+    "with_win": 75,
+    "against_games": 232,
+    "against_win": 112
+  },
+  {
+    "hero_id": 102,
+    "last_played": 1748286195,
+    "games": 70,
+    "win": 32,
+    "with_games": 166,
+    "with_win": 90,
+    "against_games": 192,
+    "against_win": 89
+  },
+  {
+    "hero_id": 68,
+    "last_played": 1749457358,
+    "games": 69,
+    "win": 35,
+    "with_games": 307,
+    "with_win": 152,
+    "against_games": 303,
+    "against_win": 135
+  },
+  {
+    "hero_id": 23,
+    "last_played": 1748462983,
+    "games": 68,
+    "win": 33,
+    "with_games": 300,
+    "with_win": 136,
+    "against_games": 298,
+    "against_win": 152
+  },
+  {
+    "hero_id": 95,
+    "last_played": 1753229968,
+    "games": 65,
+    "win": 37,
+    "with_games": 134,
+    "with_win": 72,
+    "against_games": 179,
+    "against_win": 101
+  },
+  {
+    "hero_id": 30,
+    "last_played": 1751315538,
+    "games": 62,
+    "win": 25,
+    "with_games": 751,
+    "with_win": 406,
+    "against_games": 776,
+    "against_win": 360
+  },
+  {
+    "hero_id": 114,
+    "last_played": 1749764350,
+    "games": 60,
+    "win": 21,
+    "with_games": 219,
+    "with_win": 98,
+    "against_games": 261,
+    "against_win": 158
+  },
+  {
+    "hero_id": 26,
+    "last_played": 1750790935,
+    "games": 58,
+    "win": 27,
+    "with_games": 780,
+    "with_win": 346,
+    "against_games": 777,
+    "against_win": 398
+  },
+  {
+    "hero_id": 112,
+    "last_played": 1743637282,
+    "games": 50,
+    "win": 21,
+    "with_games": 175,
+    "with_win": 89,
+    "against_games": 144,
+    "against_win": 72
+  },
+  {
+    "hero_id": 81,
+    "last_played": 1751660963,
+    "games": 46,
+    "win": 22,
+    "with_games": 169,
+    "with_win": 90,
+    "against_games": 250,
+    "against_win": 122
+  },
+  {
+    "hero_id": 5,
+    "last_played": 1723594958,
+    "games": 42,
+    "win": 22,
+    "with_games": 575,
+    "with_win": 280,
+    "against_games": 572,
+    "against_win": 279
+  },
+  {
+    "hero_id": 9,
+    "last_played": 1749928677,
+    "games": 39,
+    "win": 22,
+    "with_games": 390,
+    "with_win": 207,
+    "against_games": 407,
+    "against_win": 202
+  },
+  {
+    "hero_id": 37,
+    "last_played": 1751327862,
+    "games": 39,
+    "win": 25,
+    "with_games": 314,
+    "with_win": 167,
+    "against_games": 384,
+    "against_win": 178
+  },
+  {
+    "hero_id": 19,
+    "last_played": 1746610085,
+    "games": 37,
+    "win": 20,
+    "with_games": 129,
+    "with_win": 58,
+    "against_games": 174,
+    "against_win": 101
+  },
+  {
+    "hero_id": 42,
+    "last_played": 1726007650,
+    "games": 34,
+    "win": 13,
+    "with_games": 306,
+    "with_win": 153,
+    "against_games": 451,
+    "against_win": 215
+  },
+  {
+    "hero_id": 56,
+    "last_played": 1750818543,
+    "games": 33,
+    "win": 15,
+    "with_games": 120,
+    "with_win": 53,
+    "against_games": 162,
+    "against_win": 79
+  },
+  {
+    "hero_id": 59,
+    "last_played": 1747938572,
+    "games": 32,
+    "win": 18,
+    "with_games": 136,
+    "with_win": 65,
+    "against_games": 189,
+    "against_win": 88
+  },
+  {
+    "hero_id": 119,
+    "last_played": 1725253910,
+    "games": 31,
+    "win": 14,
+    "with_games": 157,
+    "with_win": 77,
+    "against_games": 175,
+    "against_win": 92
+  },
+  {
+    "hero_id": 15,
+    "last_played": 1747407409,
+    "games": 30,
+    "win": 19,
+    "with_games": 132,
+    "with_win": 68,
+    "against_games": 152,
+    "against_win": 74
+  },
+  {
+    "hero_id": 46,
+    "last_played": 1749913362,
+    "games": 29,
+    "win": 13,
+    "with_games": 147,
+    "with_win": 72,
+    "against_games": 143,
+    "against_win": 73
+  },
+  {
+    "hero_id": 98,
+    "last_played": 1743120420,
+    "games": 27,
+    "win": 10,
+    "with_games": 149,
+    "with_win": 73,
+    "against_games": 193,
+    "against_win": 91
+  },
+  {
+    "hero_id": 96,
+    "last_played": 1723106176,
+    "games": 26,
+    "win": 10,
+    "with_games": 229,
+    "with_win": 121,
+    "against_games": 300,
+    "against_win": 157
+  },
+  {
+    "hero_id": 67,
+    "last_played": 1747404674,
+    "games": 24,
+    "win": 11,
+    "with_games": 183,
+    "with_win": 105,
+    "against_games": 348,
+    "against_win": 153
+  },
+  {
+    "hero_id": 49,
+    "last_played": 1750373075,
+    "games": 23,
+    "win": 11,
+    "with_games": 194,
+    "with_win": 93,
+    "against_games": 273,
+    "against_win": 134
+  },
+  {
+    "hero_id": 7,
+    "last_played": 1693103293,
+    "games": 21,
+    "win": 9,
+    "with_games": 275,
+    "with_win": 131,
+    "against_games": 339,
+    "against_win": 162
+  },
+  {
+    "hero_id": 28,
+    "last_played": 1698528522,
+    "games": 21,
+    "win": 7,
+    "with_games": 230,
+    "with_win": 113,
+    "against_games": 319,
+    "against_win": 165
+  },
+  {
+    "hero_id": 89,
+    "last_played": 1685396302,
+    "games": 20,
+    "win": 12,
+    "with_games": 34,
+    "with_win": 14,
+    "against_games": 62,
+    "against_win": 36
+  },
+  {
+    "hero_id": 22,
+    "last_played": 1714077285,
+    "games": 19,
+    "win": 8,
+    "with_games": 348,
+    "with_win": 166,
+    "against_games": 415,
+    "against_win": 208
+  },
+  {
+    "hero_id": 108,
+    "last_played": 1751239204,
+    "games": 18,
+    "win": 8,
+    "with_games": 158,
+    "with_win": 80,
+    "against_games": 216,
+    "against_win": 114
+  },
+  {
+    "hero_id": 12,
+    "last_played": 1721705216,
+    "games": 17,
+    "win": 4,
+    "with_games": 132,
+    "with_win": 56,
+    "against_games": 226,
+    "against_win": 106
+  },
+  {
+    "hero_id": 53,
+    "last_played": 1748993003,
+    "games": 17,
+    "win": 9,
+    "with_games": 268,
+    "with_win": 117,
+    "against_games": 287,
+    "against_win": 154
+  },
+  {
+    "hero_id": 90,
+    "last_played": 1726355985,
+    "games": 15,
+    "win": 9,
+    "with_games": 142,
+    "with_win": 75,
+    "against_games": 146,
+    "against_win": 80
+  },
+  {
+    "hero_id": 32,
+    "last_played": 1731089495,
+    "games": 14,
+    "win": 5,
+    "with_games": 178,
+    "with_win": 111,
+    "against_games": 308,
+    "against_win": 129
+  },
+  {
+    "hero_id": 50,
+    "last_played": 1689636549,
+    "games": 14,
+    "win": 9,
+    "with_games": 376,
+    "with_win": 198,
+    "against_games": 379,
+    "against_win": 181
+  },
+  {
+    "hero_id": 27,
+    "last_played": 1727116183,
+    "games": 13,
+    "win": 3,
+    "with_games": 636,
+    "with_win": 338,
+    "against_games": 678,
+    "against_win": 327
+  },
+  {
+    "hero_id": 73,
+    "last_played": 1588625052,
+    "games": 13,
+    "win": 8,
+    "with_games": 203,
+    "with_win": 99,
+    "against_games": 218,
+    "against_win": 108
+  },
+  {
+    "hero_id": 120,
+    "last_played": 1615151090,
+    "games": 13,
+    "win": 2,
+    "with_games": 91,
+    "with_win": 37,
+    "against_games": 126,
+    "against_win": 66
+  },
+  {
+    "hero_id": 129,
+    "last_played": 1743193902,
+    "games": 13,
+    "win": 5,
+    "with_games": 131,
+    "with_win": 57,
+    "against_games": 184,
+    "against_win": 104
+  },
+  {
+    "hero_id": 135,
+    "last_played": 1750201642,
+    "games": 13,
+    "win": 8,
+    "with_games": 131,
+    "with_win": 63,
+    "against_games": 153,
+    "against_win": 78
+  },
+  {
+    "hero_id": 43,
+    "last_played": 1753190620,
+    "games": 12,
+    "win": 6,
+    "with_games": 128,
+    "with_win": 67,
+    "against_games": 163,
+    "against_win": 94
+  },
+  {
+    "hero_id": 61,
+    "last_played": 1628717387,
+    "games": 12,
+    "win": 4,
+    "with_games": 33,
+    "with_win": 11,
+    "against_games": 27,
+    "against_win": 19
+  },
+  {
+    "hero_id": 84,
+    "last_played": 1749958472,
+    "games": 10,
+    "win": 2,
+    "with_games": 574,
+    "with_win": 296,
+    "against_games": 656,
+    "against_win": 313
+  },
+  {
+    "hero_id": 72,
+    "last_played": 1753796260,
+    "games": 9,
+    "win": 3,
+    "with_games": 134,
+    "with_win": 63,
+    "against_games": 196,
+    "against_win": 97
+  },
+  {
+    "hero_id": 85,
+    "last_played": 1702679704,
+    "games": 9,
+    "win": 6,
+    "with_games": 320,
+    "with_win": 176,
+    "against_games": 373,
+    "against_win": 167
+  },
+  {
+    "hero_id": 87,
+    "last_played": 1728349890,
+    "games": 9,
+    "win": 4,
+    "with_games": 360,
+    "with_win": 171,
+    "against_games": 375,
+    "against_win": 189
+  },
+  {
+    "hero_id": 128,
+    "last_played": 1754221735,
+    "games": 9,
+    "win": 4,
+    "with_games": 140,
+    "with_win": 71,
+    "against_games": 171,
+    "against_win": 87
+  },
+  {
+    "hero_id": 31,
+    "last_played": 1733085563,
+    "games": 8,
+    "win": 6,
+    "with_games": 335,
+    "with_win": 154,
+    "against_games": 377,
+    "against_win": 184
+  },
+  {
+    "hero_id": 65,
+    "last_played": 1646345960,
+    "games": 8,
+    "win": 1,
+    "with_games": 31,
+    "with_win": 11,
+    "against_games": 47,
+    "against_win": 26
+  },
+  {
+    "hero_id": 121,
+    "last_played": 1709075149,
+    "games": 8,
+    "win": 3,
+    "with_games": 215,
+    "with_win": 97,
+    "against_games": 248,
+    "against_win": 129
+  },
+  {
+    "hero_id": 97,
+    "last_played": 1706218505,
+    "games": 7,
+    "win": 3,
+    "with_games": 128,
+    "with_win": 60,
+    "against_games": 199,
+    "against_win": 112
+  },
+  {
+    "hero_id": 137,
+    "last_played": 1719381864,
+    "games": 7,
+    "win": 2,
+    "with_games": 54,
+    "with_win": 20,
+    "against_games": 79,
+    "against_win": 42
+  },
+  {
+    "hero_id": 57,
+    "last_played": 1724773400,
+    "games": 6,
+    "win": 0,
+    "with_games": 78,
+    "with_win": 43,
+    "against_games": 129,
+    "against_win": 75
+  },
+  {
+    "hero_id": 86,
+    "last_played": 1726925594,
+    "games": 6,
+    "win": 1,
+    "with_games": 429,
+    "with_win": 184,
+    "against_games": 451,
+    "against_win": 236
+  },
+  {
+    "hero_id": 123,
+    "last_played": 1754413023,
+    "games": 6,
+    "win": 2,
+    "with_games": 141,
+    "with_win": 70,
+    "against_games": 191,
+    "against_win": 97
+  },
+  {
+    "hero_id": 71,
+    "last_played": 1693179511,
+    "games": 5,
+    "win": 2,
+    "with_games": 424,
+    "with_win": 209,
+    "against_games": 455,
+    "against_win": 216
+  },
+  {
+    "hero_id": 106,
+    "last_played": 1645645680,
+    "games": 5,
+    "win": 1,
+    "with_games": 140,
+    "with_win": 73,
+    "against_games": 139,
+    "against_win": 73
+  },
+  {
+    "hero_id": 10,
+    "last_played": 1619060996,
+    "games": 3,
+    "win": 2,
+    "with_games": 98,
+    "with_win": 58,
+    "against_games": 161,
+    "against_win": 80
+  },
+  {
+    "hero_id": 52,
+    "last_played": 1563148346,
+    "games": 3,
+    "win": 0,
+    "with_games": 67,
+    "with_win": 30,
+    "against_games": 77,
+    "against_win": 47
+  },
+  {
+    "hero_id": 79,
+    "last_played": 1588175589,
+    "games": 3,
+    "win": 3,
+    "with_games": 66,
+    "with_win": 25,
+    "against_games": 73,
+    "against_win": 40
+  },
+  {
+    "hero_id": 91,
+    "last_played": 1697668652,
+    "games": 3,
+    "win": 0,
+    "with_games": 49,
+    "with_win": 23,
+    "against_games": 66,
+    "against_win": 36
+  },
+  {
+    "hero_id": 92,
+    "last_played": 1659411734,
+    "games": 3,
+    "win": 1,
+    "with_games": 16,
+    "with_win": 10,
+    "against_games": 24,
+    "against_win": 5
+  },
+  {
+    "hero_id": 100,
+    "last_played": 1568266541,
+    "games": 3,
+    "win": 1,
+    "with_games": 168,
+    "with_win": 74,
+    "against_games": 214,
+    "against_win": 108
+  },
+  {
+    "hero_id": 131,
+    "last_played": 1726922378,
+    "games": 3,
+    "win": 2,
+    "with_games": 49,
+    "with_win": 18,
+    "against_games": 48,
+    "against_win": 22
+  },
+  {
+    "hero_id": 13,
+    "last_played": 1568064707,
+    "games": 2,
+    "win": 1,
+    "with_games": 115,
+    "with_win": 43,
+    "against_games": 159,
+    "against_win": 82
+  },
+  {
+    "hero_id": 34,
+    "last_played": 1564307749,
+    "games": 2,
+    "win": 1,
+    "with_games": 170,
+    "with_win": 80,
+    "against_games": 252,
+    "against_win": 122
+  },
+  {
+    "hero_id": 38,
+    "last_played": 1568407912,
+    "games": 2,
+    "win": 2,
+    "with_games": 46,
+    "with_win": 26,
+    "against_games": 73,
+    "against_win": 34
+  },
+  {
+    "hero_id": 39,
+    "last_played": 1565996075,
+    "games": 2,
+    "win": 1,
+    "with_games": 260,
+    "with_win": 120,
+    "against_games": 286,
+    "against_win": 144
+  },
+  {
+    "hero_id": 40,
+    "last_played": 1661560410,
+    "games": 2,
+    "win": 0,
+    "with_games": 186,
+    "with_win": 99,
+    "against_games": 244,
+    "against_win": 124
+  },
+  {
+    "hero_id": 45,
+    "last_played": 1610859110,
+    "games": 2,
+    "win": 1,
+    "with_games": 154,
+    "with_win": 75,
+    "against_games": 159,
+    "against_win": 89
+  },
+  {
+    "hero_id": 51,
+    "last_played": 1612751689,
+    "games": 2,
+    "win": 1,
+    "with_games": 154,
+    "with_win": 74,
+    "against_games": 193,
+    "against_win": 91
+  },
+  {
+    "hero_id": 69,
+    "last_played": 1578251893,
+    "games": 2,
+    "win": 1,
+    "with_games": 99,
+    "with_win": 53,
+    "against_games": 161,
+    "against_win": 97
+  },
+  {
+    "hero_id": 109,
+    "last_played": 1559695220,
+    "games": 2,
+    "win": 0,
+    "with_games": 44,
+    "with_win": 20,
+    "against_games": 92,
+    "against_win": 43
+  },
+  {
+    "hero_id": 113,
+    "last_played": 1707251352,
+    "games": 2,
+    "win": 0,
+    "with_games": 51,
+    "with_win": 30,
+    "against_games": 68,
+    "against_win": 40
+  },
+  {
+    "hero_id": 3,
+    "last_played": 1640300229,
+    "games": 1,
+    "win": 1,
+    "with_games": 71,
+    "with_win": 32,
+    "against_games": 71,
+    "against_win": 40
+  },
+  {
+    "hero_id": 20,
+    "last_played": 1696818931,
+    "games": 1,
+    "win": 0,
+    "with_games": 188,
+    "with_win": 95,
+    "against_games": 219,
+    "against_win": 104
+  },
+  {
+    "hero_id": 33,
+    "last_played": 1668628895,
+    "games": 1,
+    "win": 1,
+    "with_games": 89,
+    "with_win": 45,
+    "against_games": 124,
+    "against_win": 66
+  },
+  {
+    "hero_id": 62,
+    "last_played": 1480990943,
+    "games": 1,
+    "win": 1,
+    "with_games": 175,
+    "with_win": 91,
+    "against_games": 223,
+    "against_win": 115
+  },
+  {
+    "hero_id": 74,
+    "last_played": 1566860363,
+    "games": 1,
+    "win": 1,
+    "with_games": 539,
+    "with_win": 265,
+    "against_games": 674,
+    "against_win": 326
+  },
+  {
+    "hero_id": 77,
+    "last_played": 1569254383,
+    "games": 1,
+    "win": 0,
+    "with_games": 34,
+    "with_win": 15,
+    "against_games": 37,
+    "against_win": 23
+  },
+  {
+    "hero_id": 80,
+    "last_played": 1509573914,
+    "games": 1,
+    "win": 0,
+    "with_games": 68,
+    "with_win": 31,
+    "against_games": 79,
+    "against_win": 45
+  },
+  {
+    "hero_id": 83,
+    "last_played": 1710320716,
+    "games": 1,
+    "win": 1,
+    "with_games": 163,
+    "with_win": 78,
+    "against_games": 166,
+    "against_win": 73
+  },
+  {
+    "hero_id": 88,
+    "last_played": 1559972699,
+    "games": 1,
+    "win": 1,
+    "with_games": 114,
+    "with_win": 50,
+    "against_games": 131,
+    "against_win": 56
+  },
+  {
+    "hero_id": 107,
+    "last_played": 1561974566,
+    "games": 1,
+    "win": 1,
+    "with_games": 55,
+    "with_win": 29,
+    "against_games": 67,
+    "against_win": 32
+  },
+  {
+    "hero_id": 111,
+    "last_played": 1564120252,
+    "games": 1,
+    "win": 0,
+    "with_games": 104,
+    "with_win": 54,
+    "against_games": 103,
+    "against_win": 50
+  },
+  {
+    "hero_id": 55,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 57,
+    "with_win": 36,
+    "against_games": 78,
+    "against_win": 40
+  },
+  {
+    "hero_id": 66,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 18,
+    "with_win": 12,
+    "against_games": 17,
+    "against_win": 6
+  },
+  {
+    "hero_id": 78,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 45,
+    "with_win": 12,
+    "against_games": 55,
+    "against_win": 22
+  },
+  {
+    "hero_id": 82,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 67,
+    "with_win": 33,
+    "against_games": 68,
+    "against_win": 31
+  },
+  {
+    "hero_id": 103,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 46,
+    "with_win": 21,
+    "against_games": 54,
+    "against_win": 28
+  },
+  {
+    "hero_id": 105,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 186,
+    "with_win": 90,
+    "against_games": 226,
+    "against_win": 117
+  },
+  {
+    "hero_id": 110,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 117,
+    "with_win": 55,
+    "against_games": 120,
+    "against_win": 49
+  },
+  {
+    "hero_id": 126,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 81,
+    "with_win": 38,
+    "against_games": 113,
+    "against_win": 50
+  },
+  {
+    "hero_id": 136,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 65,
+    "with_win": 29,
+    "against_games": 67,
+    "against_win": 38
+  },
+  {
+    "hero_id": 145,
+    "last_played": 0,
+    "games": 0,
+    "win": 0,
+    "with_games": 8,
+    "with_win": 5,
+    "against_games": 13,
+    "against_win": 10
+  }
+]

@@ -9,10 +9,14 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import heroesRaw from "../../assets/heroes_with_images.json";
-import metaRaw from "../../assets/meta.json";
+
+import allPlayersData from "../../assets/data/players/players.json";
 import { calculateRP } from "../../public/data/utils/calculateRP";
 import { playerNames } from "../../public/data/utils/playerNames";
+
+
+const heroesRaw = require("../../assets/heroes_with_images.json");
+const metaRaw = require("../../assets/meta.json");
 
 type HeroStats = {
   hero_id: number;
@@ -31,7 +35,11 @@ type MetaInfo = {
   pro_pick?: number;
   pro_ban?: number;
 };
-
+type RawHero = {
+  id: number;
+  localized_name: string;
+  image_url: string;
+};
 type SortKey = "name" | "winRate" | "games" | "RP" | "RM" | "RF";
 
 export default function PlayerDetails() {
@@ -52,44 +60,47 @@ export default function PlayerDetails() {
     }
   }, [name]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const statsRes = await fetch(`/data/players/${id}.json`);
-        const statsData = await statsRes.json();
-        setStats(statsData);
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+const statsData = (allPlayersData as Record<string, HeroStats[]>)[id as string];
 
-        const heroesMap = Object.fromEntries(
-          heroesRaw.map((hero) => [
-            hero.id,
-            { name: hero.localized_name, image: hero.image_url }
-          ])
-        );
-        setHeroes(heroesMap);
+if (!statsData) {
+  throw new Error(`Dados não encontrados para o jogador ${id}`);
+}
+setStats(statsData);
 
-        const metaMapProcessed: Record<number, MetaInfo> = {};
-        metaRaw.forEach((metaHero: any) => {
-          const winRateMeta =
-            metaHero.pub_pick > 0
-              ? (metaHero.pub_win / metaHero.pub_pick) * 100
-              : 0;
-          metaMapProcessed[metaHero.id] = {
-            winRate: winRateMeta,
-            pub_pick: metaHero.pub_pick,
-            pro_pick: metaHero.pro_pick,
-            pro_ban: metaHero.pro_ban
-          };
-        });
-        setMetaMap(metaMapProcessed);
-      } catch (err) {
-        console.error("Erro ao carregar dados:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const heroesMap = Object.fromEntries(
+        (heroesRaw as RawHero[]).map((hero) => [
+          hero.id,
+          { name: hero.localized_name, image: hero.image_url }
+        ])
+      );
+      setHeroes(heroesMap);
 
-    fetchData();
-  }, [id]);
+      const metaMapProcessed: Record<number, MetaInfo> = {};
+      (metaRaw as any[]).forEach((metaHero) => {
+        const winRateMeta =
+          metaHero.pub_pick > 0
+            ? (metaHero.pub_win / metaHero.pub_pick) * 100
+            : 0;
+        metaMapProcessed[metaHero.id] = {
+          winRate: winRateMeta,
+          pub_pick: metaHero.pub_pick,
+          pro_pick: metaHero.pro_pick,
+          pro_ban: metaHero.pro_ban
+        };
+      });
+      setMetaMap(metaMapProcessed);
+    } catch (err) {
+      console.error("Erro ao carregar dados:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [id]);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
