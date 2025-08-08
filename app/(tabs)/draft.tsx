@@ -137,14 +137,17 @@ export const calculateRPOnly = (games: number, win: number): number => {
     const normalizedMeta = parseFloat(normalizeMetaScore(rawMetaScore, minScore, maxScore));
 
 let playerRP = 0;
+
 if (
   selectedSlot?.type === "ally" &&
-  selectedSlot.playerId !== undefined &&
-  players[selectedSlot.playerId]?.preferences?.[0] !== "Any"
+  selectedSlot.playerId !== undefined
 ) {
   const rawRP = players[selectedSlot.playerId]?.stats?.[heroId];
-  playerRP = typeof rawRP === "number" ? rawRP : 0;
+  if (typeof rawRP === "number") {
+    playerRP = rawRP;
+  }
 }
+
 
 
     const finalScore = normalizedMeta + totalSynergy + playerRP;
