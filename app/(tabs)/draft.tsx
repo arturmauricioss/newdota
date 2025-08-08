@@ -11,10 +11,10 @@ import {
 } from "react-native";
 
 import heroMeta from "../../assets/meta.json"; // ← ajusta o path se necessário
+import synergyMatrix from "../../assets/synergyMatrix.json";
 import BanSlot from "../../components/BanSlot";
 import HeroSlot from "../../components/HeroSlot";
 import PlayerSelect from "../../components/PlayerSelect";
-import synergyMatrix from "../../public/data/synergyMatrix.json";
 import { calculateRP } from "../../public/data/utils/calculateRP";
 import { getHeroSuggestions } from "../../public/data/utils/draftLogic";
 import { playerNames } from "../../public/data/utils/playerNames";

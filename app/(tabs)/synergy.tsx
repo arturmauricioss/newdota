@@ -7,6 +7,8 @@ import {
   Text,
   View
 } from "react-native";
+import heroesRaw from "../../assets/heroes_with_images.json";
+import synergyRaw from "../../assets/synergyMatrix.json";
 
 type Hero = {
   id: number;
@@ -27,15 +29,8 @@ const Synergy = () => {
   const [selectedHeroId, setSelectedHeroId] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("/data/heroes_with_images.json")
-      .then((res) => res.json())
-      .then(setHeroes)
-      .catch((err) => console.error("Erro ao carregar heróis:", err));
-
-    fetch("/data/synergyMatrix.json")
-      .then((res) => res.json())
-      .then(setSynergies)
-      .catch((err) => console.error("Erro ao carregar sinergias:", err));
+    setHeroes(heroesRaw);
+    setSynergies(synergyRaw);
   }, []);
 
   const synergy =
@@ -158,6 +153,7 @@ const Synergy = () => {
 };
 
 export default Synergy;
+
 
 const styles = StyleSheet.create({
   container: {

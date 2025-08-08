@@ -9,8 +9,11 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import heroesRaw from "../../assets/heroes_with_images.json";
+import metaRaw from "../../assets/meta.json";
 import { calculateRP } from "../../public/data/utils/calculateRP";
 import { playerNames } from "../../public/data/utils/playerNames";
+
 type HeroStats = {
   hero_id: number;
   games: number;
@@ -56,32 +59,30 @@ export default function PlayerDetails() {
         const statsData = await statsRes.json();
         setStats(statsData);
 
-        const heroesRes = await fetch("/data/heroes_with_images.json");
-        const heroesRaw = await heroesRes.json();
-        const heroesMap = Object.fromEntries(
-          heroesRaw.map((hero: any) => [
-            hero.id,
-            { name: hero.localized_name, image: hero.image_url }
-          ])
-        );
-        setHeroes(heroesMap);
+    
+const heroesMap = Object.fromEntries(
+  heroesRaw.map((hero) => [
+    hero.id,
+    { name: hero.localized_name, image: hero.image_url }
+  ])
+);
+setHeroes(heroesMap);
 
-        const metaRes = await fetch("../assets/meta.json");
-        const metaRaw = await metaRes.json();
-        const metaMapProcessed: Record<number, MetaInfo> = {};
-        metaRaw.forEach((metaHero: any) => {
-          const winRateMeta =
-            metaHero.pub_pick > 0
-              ? (metaHero.pub_win / metaHero.pub_pick) * 100
-              : 0;
-          metaMapProcessed[metaHero.id] = {
-            winRate: winRateMeta,
-            pub_pick: metaHero.pub_pick,
-            pro_pick: metaHero.pro_pick,
-            pro_ban: metaHero.pro_ban
-          };
-        });
-        setMetaMap(metaMapProcessed);
+      const metaMapProcessed: Record<number, MetaInfo> = {};
+      metaRaw.forEach((metaHero: any) => {
+        const winRateMeta =
+          metaHero.pub_pick > 0
+            ? (metaHero.pub_win / metaHero.pub_pick) * 100
+            : 0;
+        metaMapProcessed[metaHero.id] = {
+          winRate: winRateMeta,
+          pub_pick: metaHero.pub_pick,
+          pro_pick: metaHero.pro_pick,
+          pro_ban: metaHero.pro_ban
+        };
+      });
+      setMetaMap(metaMapProcessed);
+
       } catch (err) {
         console.error("Erro ao carregar dados:", err);
       } finally {
