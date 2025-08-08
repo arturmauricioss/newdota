@@ -66,7 +66,7 @@ export default function PlayerDetails() {
         );
         setHeroes(heroesMap);
 
-        const metaRes = await fetch("/data/meta.json");
+        const metaRes = await fetch("../assets/meta.json");
         const metaRaw = await metaRes.json();
         const metaMapProcessed: Record<number, MetaInfo> = {};
         metaRaw.forEach((metaHero: any) => {

@@ -1,4 +1,4 @@
-import metaData from "../meta.json";
+import metaData from "../../../assets/meta.json";
 
 type SlotSelection = {
   type: "ally" | "enemy" | "ban";

@@ -10,14 +10,18 @@ import {
   View,
 } from "react-native";
 
+import heroMeta from "../../assets/meta.json"; // ← ajusta o path se necessário
 import BanSlot from "../../components/BanSlot";
 import HeroSlot from "../../components/HeroSlot";
 import PlayerSelect from "../../components/PlayerSelect";
-import heroMeta from "../../public/data/meta.json"; // ← ajusta o path se necessário
 import synergyMatrix from "../../public/data/synergyMatrix.json";
 import { calculateRP } from "../../public/data/utils/calculateRP";
 import { getHeroSuggestions } from "../../public/data/utils/draftLogic";
 import { playerNames } from "../../public/data/utils/playerNames";
+
+const screenWidth = Dimensions.get("window").width;
+const selectWidth = screenWidth / 5 - 16; // 5 selects com margem
+
 type SlotSelection = {
   type: "ally" | "enemy" | "ban";
   index: number;
@@ -154,7 +158,7 @@ if (
       synergyVsEnemy,
       synergyFromBans,
       totalSynergy,
-  finalScore: adjustedMetaScore/2 + totalSynergy + playerRP, // ← aqui
+  finalScore: adjustedMetaScore/2 + totalSynergy/2 + playerRP, // ← aqui
   displayScore: adjustedMetaScore.toFixed(1), // ← aqui
       playerRP,
     };
@@ -414,7 +418,7 @@ const sortedHeroes = useMemo<RankedHero[]>(() => {
 // Correto
 const DraftScreen = () => { /* ... */ };
 
-const screenWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -438,18 +442,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
 
-  // 🎮 Players
-  playersRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginBottom: 16,
-  },
-  playerSelectWrapper: {
-    margin: 4,
-    minWidth: 140,
-  },
-
   // 🛡️ Ally & Enemy Teams
   teamSection: {
     marginBottom: 16,
@@ -462,7 +454,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   slotWrapper: {
-    margin: 4,
+    margin: 1,
+    width:"18%",
   },
 
   // 🚫 Ban Slots
@@ -517,4 +510,16 @@ const styles = StyleSheet.create({
     textAlign: "left",
     paddingHorizontal: 4,
   },
+  playersRow: {
+    flexDirection: "row",
+    justifyContent: "space-between", // ou "center" se quiser alinhamento central
+    flexWrap: "wrap", // permite quebrar linha se a tela for pequena
+    paddingHorizontal: 8,
+    marginVertical: 12,
+    gap: 8, // se estiver usando React Native >= 0.71
+  },
+  playerSelectWrapper: {
+    width: "18%",
+  },
+  
 });

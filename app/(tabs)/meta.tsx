@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import metaData from "../../assets/meta.json"; // ajuste o caminho conforme sua estrutura
+
 import {
   Image,
   ScrollView,
@@ -26,19 +28,15 @@ const MetaTable = () => {
   const [sortKey, setSortKey] = useState<SortKey>("metaScore");
   const [sortAsc, setSortAsc] = useState(false);
 
-  useEffect(() => {
-    fetch("/data/meta.json")
-      .then((res) => res.json())
-      .then((data: MetaHero[]) => {
-        const processed = data.map((hero) => ({
-          ...hero,
-          winRate: parseFloat(((hero.pub_win / hero.pub_pick) * 100).toFixed(2)),
-          metaScore: (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0),
-        }));
-        setHeroes(processed);
-      })
-      .catch((err) => console.error("Erro ao carregar meta:", err));
-  }, []);
+useEffect(() => {
+  const processed = metaData.map((hero) => ({
+    ...hero,
+    winRate: parseFloat(((hero.pub_win / hero.pub_pick) * 100).toFixed(2)),
+    metaScore: (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0),
+  }));
+  setHeroes(processed);
+}, []);
+
 
   const sortedHeroes = [...heroes].sort((a, b) => {
     let result = 0;
