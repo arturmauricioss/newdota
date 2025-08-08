@@ -36,15 +36,6 @@ tabBarIcon: ({ color }: { color: string }) => (
         }}
       />
 
-    <Tabs.Screen
-        name="synergy"
-        options={{
-          title: 'Sinergia',
-tabBarIcon: ({ color }: { color: string }) => (
-  <IconSymbol size={28} name="person.3.fill" color={color} />
-),
-        }}
-      />
       <Tabs.Screen
         name="meta"
         options={{
