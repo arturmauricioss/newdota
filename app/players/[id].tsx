@@ -115,7 +115,7 @@ setStats(statsData);
     const RP = calculateRP(games, win);
     const rawRM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
     const RM = rawRM / 100 - 10;
-    return (RP * 4 + RM * 2) / 6;
+    return (RP * 5 +RM*2) / 7;
   };
 
   const sortedStats = [...stats].sort((a, b) => {

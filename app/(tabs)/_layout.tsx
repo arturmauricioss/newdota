@@ -40,15 +40,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="meta"
-        options={{
-          title: 'Meta',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="heroes"
         options={{
@@ -58,7 +50,17 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+
+            <Tabs.Screen
+        name="meta"
+        options={{
+          title: 'Meta',
+          tabBarIcon: ({ color }: { color: string }) => (
+            <IconSymbol size={28} name="person.3.fill" color={color} />
+          ),
+        }}
+      />
+            <Tabs.Screen
         name="players"
         options={{
           title: 'Jogadores',
@@ -74,5 +76,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    
   );
 }
