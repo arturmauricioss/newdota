@@ -55,16 +55,15 @@ export const draftStyles = StyleSheet.create({
   tableHeader: {
     flexDirection: "row",
     backgroundColor: "#222",
-    paddingVertical: 6,
-    marginBottom: 8,
+    paddingVertical: 4,
+    marginBottom: 6,
   },
   tableHeaderCell: {
-    width: 120,
-    fontWeight: "bold",
-    fontSize: 14,
-    color: "#ccc",
-    textAlign: "center",
-    paddingHorizontal: 4,
+  fontWeight: "bold",
+  fontSize: 13,
+  color: "#ccc",
+  textAlign: "center",
+  paddingHorizontal: 2,
   },
   tableRow: {
     flexDirection: "row",
@@ -75,8 +74,8 @@ export const draftStyles = StyleSheet.create({
     borderRadius: 4,
   },
   tableImage: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 4,
     marginHorizontal: 8,
   },
@@ -98,4 +97,76 @@ export const draftStyles = StyleSheet.create({
   playerSelectWrapper: {
     width: "18%",
   },
+  cellName: {
+  width: 140,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "left",
+  paddingHorizontal: 4,
+},
+
+cellFinal: {
+  width: 70,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+cellRP: {
+  width: 70,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+cellScore: {
+  width: 70,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+cellSynergy: {
+  width: 80,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+cellAlly: {
+  width: 70,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+cellEnemy: {
+  width: 70,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+
+cellBan: {
+  width: 70,
+  fontSize: 12,
+  color: "#f0f0f0",
+  textAlign: "center",
+},
+heroCell: {
+  flexDirection: "row",
+  alignItems: "center",
+  width: 140, // ajuste conforme necessário
+},
+  heroImage: {
+  width: 32,
+  height: 32,
+  marginRight: 8,
+  borderRadius: 4,
+},
+heroName: {
+  fontSize: 14,
+  flexShrink: 1,
+  color: "#f0f0f0",
+},
 });

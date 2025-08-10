@@ -11,19 +11,28 @@ import {
 import { updateMeta } from "../../public/data/services/metaService";
 import { addPlayer } from "../../public/data/services/playerService";
 
+// 🔁 Conversão de SteamID64 para Dotabuff ID
+function convertToDotabuffId(input: string): number {
+  const id = Number(input);
+  if (id > 76561197960265728) {
+    return id - 76561197960265728;
+  }
+  return id;
+}
+
 export default function ConfigScreen() {
   const [newPlayerId, setNewPlayerId] = useState("");
   const [newPlayerName, setNewPlayerName] = useState("");
   const router = useRouter();
 
   const handleAdd = async () => {
-    const id = Number(newPlayerId);
-    if (!id || !newPlayerName.trim()) {
+    const convertedId = convertToDotabuffId(newPlayerId);
+    if (!convertedId || !newPlayerName.trim()) {
       return Alert.alert("⚠️ Preencha ID e Nome");
     }
 
     try {
-      await addPlayer(id, newPlayerName.trim());
+      await addPlayer(convertedId, newPlayerName.trim());
       Alert.alert("✅ Jogador adicionado!", undefined, [
         { text: "OK", onPress: () => router.back() },
       ]);
@@ -37,7 +46,6 @@ export default function ConfigScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Configurações</Text>
 
-      {/* Botão de meta */}
       <TouchableOpacity
         style={styles.button}
         onPress={async () => {
@@ -48,13 +56,12 @@ export default function ConfigScreen() {
         <Text style={styles.buttonText}>🎯 Atualizar Meta</Text>
       </TouchableOpacity>
 
-      {/* DIVISOR */}
       <View style={styles.divider} />
       <Text style={styles.title}>Jogadores</Text>
-      {/* Seção de adicionar jogador */}
+
       <TextInput
         style={styles.input}
-        placeholder="ID do jogador"
+        placeholder="ID do jogador (Steam ou Dotabuff)"
         placeholderTextColor="#888"
         keyboardType="numeric"
         value={newPlayerId}
@@ -89,8 +96,6 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     color: "#fff",
   },
-
-  /* Botões */
   button: {
     backgroundColor: "#007AFF",
     paddingVertical: 14,
@@ -101,18 +106,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
-
   },
-
-  /* Linha divisória */
   divider: {
     width: "80%",
     height: 1,
     backgroundColor: "#444655",
     marginVertical: 24,
   },
-
-  /* Inputs */
   input: {
     width: "80%",
     maxWidth: 600,

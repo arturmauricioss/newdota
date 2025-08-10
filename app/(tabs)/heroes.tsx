@@ -4,14 +4,13 @@ import {
   Image,
   LayoutAnimation,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   UIManager,
   useWindowDimensions,
-  View,
+  View
 } from "react-native";
 import heroesData from "../../assets/heroes_with_images.json";
 import synergyRaw from "../../assets/synergyMatrix.json";
@@ -77,7 +76,7 @@ const Heroes = () => {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
 {selectedHeroId === null && (
   <>
     <Text style={styles.title}>Heróis</Text>
@@ -193,8 +192,8 @@ const Heroes = () => {
         </View>
       )}
 
-      <View style={styles.botbar} />
-    </ScrollView>
+
+    </View>
   );
 };
 
@@ -228,7 +227,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 80,
-    height: 80,
+    height: 88,
     alignItems: "center",
     margin: 6,
     backgroundColor: "#2b2c3b",
