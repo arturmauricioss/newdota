@@ -1,6 +1,15 @@
 import { Dimensions, StyleSheet } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
+const totalTableWidth =
+  140 + // Herói
+  70 + // Final
+  70 + // Pessoal
+  70 + // Meta
+  80 + // Sinergia
+  70 + // Aliado
+  70 + // Inimigo
+  70;  // Bans
 
 export const draftStyles = StyleSheet.create({
   safeArea: {
@@ -19,10 +28,11 @@ export const draftStyles = StyleSheet.create({
     marginBottom: 12,
   },
   subTitle: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: "bold",
     color: "#f0f0f0",
     marginVertical: 8,
-    alignSelf: "flex-start",
+    alignSelf: "center",
   },
   teamSection: {
     marginBottom: 16,
@@ -48,9 +58,7 @@ export const draftStyles = StyleSheet.create({
     marginVertical: 16,
     width: "100%",
     paddingHorizontal: 8,
-  },
-  tableContainer: {
-    minWidth: screenWidth > 800 ? screenWidth : 960,
+    alignItems: "center",
   },
   tableHeader: {
     flexDirection: "row",
@@ -59,11 +67,11 @@ export const draftStyles = StyleSheet.create({
     marginBottom: 6,
   },
   tableHeaderCell: {
-  fontWeight: "bold",
-  fontSize: 13,
-  color: "#ccc",
-  textAlign: "center",
-  paddingHorizontal: 2,
+    fontWeight: "bold",
+    fontSize: 13,
+    color: "#ccc",
+    textAlign: "center",
+    paddingHorizontal: 2,
   },
   tableRow: {
     flexDirection: "row",
@@ -98,75 +106,72 @@ export const draftStyles = StyleSheet.create({
     width: "18%",
   },
   cellName: {
-  width: 140,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "left",
-  paddingHorizontal: 4,
-},
-
-cellFinal: {
-  width: 70,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-
-cellRP: {
-  width: 70,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-
-cellScore: {
-  width: 70,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-
-cellSynergy: {
-  width: 80,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-
-cellAlly: {
-  width: 70,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-
-cellEnemy: {
-  width: 70,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-
-cellBan: {
-  width: 70,
-  fontSize: 12,
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-heroCell: {
-  flexDirection: "row",
-  alignItems: "center",
-  width: 140, // ajuste conforme necessário
-},
+    width: 140,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "left",
+    paddingHorizontal: 4,
+  },
+  cellFinal: {
+    width: 70,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  cellRP: {
+    width: 70,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  cellScore: {
+    width: 70,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  cellSynergy: {
+    width: 80,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  cellAlly: {
+    width: 70,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  cellEnemy: {
+    width: 70,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  cellBan: {
+    width: 70,
+    fontSize: 12,
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  heroCell: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 140,
+  },
   heroImage: {
-  width: 32,
-  height: 32,
-  marginRight: 8,
-  borderRadius: 4,
-},
-heroName: {
-  fontSize: 14,
-  flexShrink: 1,
-  color: "#f0f0f0",
-},
+    width: 32,
+    height: 32,
+    marginRight: 8,
+    borderRadius: 4,
+  },
+  heroName: {
+    fontSize: 14,
+    flexShrink: 1,
+    color: "#f0f0f0",
+  },
+  tableContainer: {
+    minWidth: totalTableWidth,
+    alignSelf: "center", // centraliza dentro do pai
+  },
 });
