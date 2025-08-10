@@ -1,56 +1,56 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
-import { playerNames } from "../../public/data/utils/playerNames";
+import React, { useCallback, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+
+import { getAllPlayers } from "../../public/data/services/playerService";
 
 export default function Players() {
   const [players, setPlayers] = useState<[number, string][]>([]);
   const router = useRouter();
 
-  useEffect(() => {
-    const sorted = Object.entries(playerNames).sort((a, b) =>
-      a[1].localeCompare(b[1])
-    );
-    setPlayers(sorted.map(([id, name]) => [Number(id), name]));
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        const list = await getAllPlayers();
+        setPlayers(list);
+      })();
+    }, [])
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Jogadores</Text>
-      <ScrollView contentContainerStyle={styles.grid}>
+      {/* Cabeçalho */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Jogadores</Text>
+      </View>
+
+      {/* Grid de cards */}
+      <View style={styles.grid}>
         {players.map(([id, name]) => (
-          <HoverCard
+          <Pressable
             key={id}
-            name={name}
             onPress={() => router.push(`/players/${id}`)}
-          />
+            style={({ pressed }) => [
+              styles.card,
+              pressed && styles.cardHovered,
+            ]}
+          >
+            <Text style={styles.cardText}>{name}</Text>
+          </Pressable>
         ))}
-      </ScrollView>
+      </View>
+
+      {/* Botão de adicionar jogador */}
+      <View style={styles.footer}>
+        <Pressable
+          style={styles.addButton}
+          onPress={() => router.push("/config")}
+        >
+          <Text style={styles.addButtonText}>➕</Text>
+        </Pressable>
+      </View>
     </ScrollView>
-  );
-}
-
-function HoverCard({
-  name,
-  onPress,
-}: {
-  name: string;
-  onPress: () => void;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <Pressable
-      onHoverIn={() => setHovered(true)}
-      onHoverOut={() => setHovered(false)}
-      onPress={onPress}
-      style={[
-        styles.card,
-        hovered && styles.cardHovered,
-      ]}
-    >
-      <Text style={styles.cardText}>{name}</Text>
-    </Pressable>
   );
 }
 
@@ -58,17 +58,18 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
     alignItems: "center",
-    gap: 10,
-    minHeight: "100%",
     backgroundColor: "#1e1e2f",
+    minHeight: "100%",
+  },
+  header: {
+    width: "100%",
+    alignItems: "center",
+    marginBottom: 12,
   },
   title: {
     fontSize: 24,
-    marginBottom: 12,
     fontWeight: "bold",
-    textAlign: "center",
     color: "#ffffff",
-    maxWidth: "100%",
   },
   grid: {
     flexDirection: "row",
@@ -77,12 +78,11 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#dadadaff",
     padding: 12,
     borderRadius: 8,
-    margin: 6,
     minWidth: 80,
-    transitionDuration: "200ms",
+    margin: 6,
   },
   cardHovered: {
     backgroundColor: "#e0e0e0",
@@ -91,6 +91,22 @@ const styles = StyleSheet.create({
   cardText: {
     color: "#1e1e2f",
     fontSize: 16,
+    fontWeight: "600",
     textAlign: "center",
+  },
+  footer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 24,
+  },
+  addButton: {
+    backgroundColor: "#00ff2aff",
+    padding: 12,
+    borderRadius: 8,
+  },
+  addButtonText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "600",
   },
 });

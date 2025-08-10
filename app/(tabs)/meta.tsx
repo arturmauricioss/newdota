@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import metaData from "../../assets/meta.json"; // ajuste o caminho conforme sua estrutura
 
+import React, { useEffect, useState } from "react";
 import {
-  Image,
-  ScrollView,
+  Image, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from "react-native";
+import { loadHeroMeta } from "../../public/data/utils/loadHeroMeta"; // ajuste o caminho conforme sua estrutura
 
 type MetaHero = {
   id: number;
@@ -30,12 +29,36 @@ const MetaTable = () => {
   const [sortAsc, setSortAsc] = useState(false);
 
 useEffect(() => {
-  const processed = metaData.map((hero) => ({
+  const loadMeta = async () => {
+    try {
+      const rawData = await loadHeroMeta();
+
+const rawScores = rawData.map((hero: MetaHero) =>
+  (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0)
+);
+const maxScore = Math.max(...rawScores);
+
+const processed = rawData.map((hero: MetaHero) => {
+  const rawMeta = (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0);
+  const normalizedMeta = maxScore > 0
+    ? (rawMeta / maxScore) * 20 - 10
+    : 0;
+
+  return {
     ...hero,
     winRate: parseFloat(((hero.pub_win / hero.pub_pick) * 100).toFixed(2)),
-    metaScore: (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0),
-  }));
-  setHeroes(processed);
+    metaScore: parseFloat(normalizedMeta.toFixed(2)),
+  };
+});
+
+      setHeroes(processed);
+    } catch (error) {
+      console.error("Erro ao carregar meta:", error);
+      setHeroes([]);
+    }
+  };
+
+  loadMeta();
 }, []);
 
 

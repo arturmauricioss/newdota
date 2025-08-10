@@ -10,42 +10,28 @@ import {
   View
 } from "react-native";
 
-import allPlayersData from "../../assets/data/players/players.json";
+import { getPlayerStats } from "../../public/data/services/playerService";
+
 import { calculateRP } from "../../public/data/utils/calculateRP";
+import { loadHeroMeta } from "../../public/data/utils/loadHeroMeta";
+import { normalizeMetaScore } from "../../public/data/utils/normalize";
 import { playerNames } from "../../public/data/utils/playerNames";
 
+import {
+  HeroInfo,
+  HeroStats,
+  MetaInfo,
+  RawHero,
+  SortKey
+} from "../../types";
 
 const heroesRaw = require("../../assets/heroes_with_images.json");
-const metaRaw = require("../../assets/meta.json");
-
-type HeroStats = {
-  hero_id: number;
-  games: number;
-  win: number;
-};
-
-type HeroInfo = {
-  name: string;
-  image: string;
-};
-
-type MetaInfo = {
-  winRate: number;
-  pub_pick: number;
-  pro_pick?: number;
-  pro_ban?: number;
-};
-type RawHero = {
-  id: number;
-  localized_name: string;
-  image_url: string;
-};
-type SortKey = "name" | "winRate" | "games" | "RP" | "RM" | "RF";
 
 export default function PlayerDetails() {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
-  const name = playerNames[Number(id)];
+  const numericId = Number(id);
+  const name = playerNames[numericId] ?? `Jogador ${numericId}`;
 
   const [stats, setStats] = useState<HeroStats[]>([]);
   const [heroes, setHeroes] = useState<Record<number, HeroInfo>>({});
@@ -53,54 +39,57 @@ export default function PlayerDetails() {
   const [loading, setLoading] = useState(true);
   const [sortKey, setSortKey] = useState<SortKey>("RF");
   const [sortAsc, setSortAsc] = useState(false);
+  const [maxRM, setMaxRM] = useState(0);
 
   useEffect(() => {
-    if (name) {
-      navigation.setOptions({ title: name });
-    }
+    navigation.setOptions({ title: name });
   }, [name]);
 
- useEffect(() => {
-  const fetchData = async () => {
-    try {
-const statsData = (allPlayersData as Record<string, HeroStats[]>)[id as string];
+  useEffect(() => {
+    (async () => {
+      try {
+        // 1) Busca stats do player (do AsyncStorage ou do asset inicial)
+        const data = await getPlayerStats(numericId);
+        setStats(data);
 
-if (!statsData) {
-  throw new Error(`Dados não encontrados para o jogador ${id}`);
-}
-setStats(statsData);
+        // 2) Monta mapa de heróis estáticos
+        const heroesMap = Object.fromEntries(
+          (heroesRaw as RawHero[]).map((h) => [
+            h.id,
+            { name: h.localized_name, image: h.image_url },
+          ])
+        );
+        setHeroes(heroesMap);
 
-      const heroesMap = Object.fromEntries(
-        (heroesRaw as RawHero[]).map((hero) => [
-          hero.id,
-          { name: hero.localized_name, image: hero.image_url }
-        ])
-      );
-      setHeroes(heroesMap);
+        // 3) Carrega meta de heróis
+        const metaRaw = await loadHeroMeta();
+        const metaProcessed: Record<number, MetaInfo> = {};
+        const rawScores: number[] = [];
 
-      const metaMapProcessed: Record<number, MetaInfo> = {};
-      (metaRaw as any[]).forEach((metaHero) => {
-        const winRateMeta =
-          metaHero.pub_pick > 0
-            ? (metaHero.pub_win / metaHero.pub_pick) * 100
+        metaRaw.forEach((m: any) => {
+          const winRate = m.pub_pick
+            ? (m.pub_win / m.pub_pick) * 100
             : 0;
-        metaMapProcessed[metaHero.id] = {
-          winRate: winRateMeta,
-          pub_pick: metaHero.pub_pick,
-          pro_pick: metaHero.pro_pick,
-          pro_ban: metaHero.pro_ban
-        };
-      });
-      setMetaMap(metaMapProcessed);
-    } catch (err) {
-      console.error("Erro ao carregar dados:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+          const rawRM = (m.pro_pick ?? 0) + (m.pro_ban ?? 0);
+          rawScores.push(rawRM);
 
-  fetchData();
-}, [id]);
+          metaProcessed[m.id] = {
+            winRate,
+            pub_pick: m.pub_pick,
+            pro_pick: m.pro_pick,
+            pro_ban: m.pro_ban,
+          };
+        });
+
+        setMetaMap(metaProcessed);
+        setMaxRM(Math.max(...rawScores));
+      } catch (err) {
+        console.error("Erro ao carregar dados:", err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [numericId]);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -111,19 +100,22 @@ setStats(statsData);
     }
   };
 
-  const calculateRF = (games: number, win: number, meta?: MetaInfo) => {
+  const calculateRF = (
+    games: number,
+    win: number,
+    meta?: MetaInfo
+  ) => {
     const RP = calculateRP(games, win);
-    const rawRM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
-    const RM = rawRM / 100 - 10;
-    return (RP * 5 +RM*2) / 7;
+    const rawRM = meta
+      ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0)
+      : 0;
+    const RM = normalizeMetaScore(rawRM, maxRM);
+    return (RP * 5 + RM * 2) / 7;
   };
 
   const sortedStats = [...stats].sort((a, b) => {
-    const heroA = heroes[a.hero_id];
-    const heroB = heroes[b.hero_id];
-
-    const winRateA = a.games > 0 ? a.win / a.games : 0.5;
-    const winRateB = b.games > 0 ? b.win / b.games : 0.5;
+    const winA = a.games ? a.win / a.games : 0.5;
+    const winB = b.games ? b.win / b.games : 0.5;
 
     const RP_A = calculateRP(a.games, a.win);
     const RP_B = calculateRP(b.games, b.win);
@@ -131,27 +123,36 @@ setStats(statsData);
     const metaA = metaMap[a.hero_id];
     const metaB = metaMap[b.hero_id];
 
-    const RM_A = metaA ? (metaA.pro_pick ?? 0) + (metaA.pro_ban ?? 0) : 0;
-    const RM_B = metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0;
+    const RM_A = normalizeMetaScore(
+      (metaA ? (metaA.pro_pick ?? 0) + (metaA.pro_ban ?? 0) : 0),
+      maxRM
+    );
+    const RM_B = normalizeMetaScore(
+      (metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0),
+      maxRM
+    );
 
     const RF_A = calculateRF(a.games, a.win, metaA);
     const RF_B = calculateRF(b.games, b.win, metaB);
 
+    if (sortKey === "name") {
+      const nameA = heroes[a.hero_id]?.name ?? "";
+      const nameB = heroes[b.hero_id]?.name ?? "";
+      return sortAsc
+        ? nameA.localeCompare(nameB)
+        : nameB.localeCompare(nameA);
+    }
+
     let valA = 0;
     let valB = 0;
-
     switch (sortKey) {
-      case "name":
-        return sortAsc
-          ? (heroA?.name || "").localeCompare(heroB?.name || "")
-          : (heroB?.name || "").localeCompare(heroA?.name || "");
       case "games":
         valA = a.games;
         valB = b.games;
         break;
       case "winRate":
-        valA = winRateA;
-        valB = winRateB;
+        valA = winA;
+        valB = winB;
         break;
       case "RP":
         valA = RP_A;
@@ -171,49 +172,64 @@ setStats(statsData);
   });
 
   return (
-    <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+    <ScrollView
+      style={styles.scroll}
+      contentContainerStyle={styles.scrollContent}
+    >
       <View style={styles.wrapper}>
         <Text style={styles.title}>📊 Desempenho do Jogador</Text>
+
         {loading ? (
           <ActivityIndicator size="large" color="#f5c842" />
         ) : (
           <View style={styles.tableContainer}>
             <View style={styles.headerRow}>
-              <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("name")}>
-                <Text style={styles.headerText}>Herói</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("winRate")}>
-                <Text style={styles.headerText}>Winrate</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("RP")}>
-                <Text style={styles.headerText}>RP</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("RM")}>
-                <Text style={styles.headerText}>RM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("RF")}>
-                <Text style={styles.headerText}>RF</Text>
-              </TouchableOpacity>
+              {(["name", "winRate", "RP", "RM", "RF"] as SortKey[]).map((key) => (
+                <TouchableOpacity
+                  key={key}
+                  style={styles.headerCell}
+                  onPress={() => handleSort(key)}
+                >
+                  <Text style={styles.headerText}>
+                    {key === "name" ? "Herói" : key.toUpperCase()}
+                  </Text>
+                </TouchableOpacity>
+              ))}
             </View>
 
             {sortedStats.map((item) => {
               const hero = heroes[item.hero_id];
               const meta = metaMap[item.hero_id];
-              const winRateRaw = item.games > 0 ? item.win / item.games : 0.5;
+              const winRateRaw = item.games
+                ? item.win / item.games
+                : 0.5;
               const RP = calculateRP(item.games, item.win);
-              const rawRM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
-              const RM = rawRM / 100 - 10;
+              const rawRM = meta
+                ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0)
+                : 0;
+              const RM = normalizeMetaScore(rawRM, maxRM);
               const RF = calculateRF(item.games, item.win, meta);
 
               return (
                 <View key={item.hero_id} style={styles.row}>
                   <View style={styles.heroCell}>
-                    <Image source={{ uri: hero?.image }} style={styles.heroImage} />
+                    <Image
+                      source={{ uri: hero?.image }}
+                      style={styles.heroImage}
+                    />
                   </View>
-                  <Text style={styles.cell}>{(winRateRaw * 100).toFixed(0)}%</Text>
-                  <Text style={styles.cell}>{RP.toFixed(1)}</Text>
-                  <Text style={styles.cell}>{RM.toFixed(1)}</Text>
-                  <Text style={styles.cell}>{RF.toFixed(1)}</Text>
+                  <Text style={styles.cell}>
+                    {(winRateRaw * 100).toFixed(0)}%
+                  </Text>
+                  <Text style={styles.cell}>
+                    {RP.toFixed(1)}
+                  </Text>
+                  <Text style={styles.cell}>
+                    {RM.toFixed(1)}
+                  </Text>
+                  <Text style={styles.cell}>
+                    {RF.toFixed(1)}
+                  </Text>
                 </View>
               );
             })}
@@ -223,6 +239,7 @@ setStats(statsData);
     </ScrollView>
   );
 }
+
 const styles = StyleSheet.create({
   scroll: {
     flex: 1,

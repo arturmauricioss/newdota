@@ -1,7 +1,16 @@
-export type SlotSelection = {
-  type: "ally" | "enemy" | "ban";
-  index: number;
-  playerId?: number;
+// types.ts
+
+// 🎯 Tipos relacionados a heróis e meta
+
+export type RawHero = {
+  id: number;
+  localized_name: string;
+  image_url: string;
+};
+
+export type HeroInfo = {
+  name: string;
+  image: string;
 };
 
 export type HeroMeta = {
@@ -12,8 +21,25 @@ export type HeroMeta = {
   pub_win: number;
   pro_pick?: number;
   pro_ban?: number;
-    localized_name: string;
+  localized_name: string;
 };
+
+export type MetaInfo = {
+  winRate: number;
+  pub_pick: number;
+  pro_pick?: number;
+  pro_ban?: number;
+};
+
+export type HeroStats = {
+  hero_id: number;
+  games: number;
+  win: number;
+};
+
+export type SortKey = "name" | "winRate" | "games" | "RP" | "RM" | "RF";
+
+// 🧠 Tipos relacionados a sinergia
 
 export type SynergyEntry = {
   heroId2: number;
@@ -30,10 +56,18 @@ export type SynergyMatrix = {
   [heroId: string]: SynergyMatrixEntry;
 };
 
+// 🧑‍🤝‍🧑 Tipos relacionados a jogadores
+
 export type PlayerStatEntry = {
   hero_id: number;
   games: number;
   win: number;
+};
+
+export type PlayerProfile = {
+  name: string;
+  preferences: string[];
+  stats?: Record<number, number>;
 };
 
 export type RankedHero = {
@@ -51,11 +85,16 @@ export type RankedHero = {
   playerRP: number;
 };
 
-export type PlayerProfile = {
-  name: string;
-  preferences: string[];
-  stats?: Record<number, number>;
+// 🧩 Tipos relacionados à seleção de slots
+
+export type SlotSelection = {
+  type: "ally" | "enemy" | "ban";
+  index: number;
+  playerId?: number;
 };
+
+// ⚙️ Tipos para props de componentes
+
 export type Props = {
   suggestions: RankedHero[];
   styles: any;
@@ -75,5 +114,4 @@ export type Props = {
   setAllyTeam: (team: (string | null)[]) => void;
   setEnemyTeam: (team: (string | null)[]) => void;
   setBans: (bans: (string | null)[]) => void;
-  
 };
