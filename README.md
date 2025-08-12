@@ -1,50 +1,23 @@
-# Welcome to your Expo app 👋
+v0.2
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+#Projeto para Dota 2
 
-## Get started
+##React-Native + Web
 
-1. Install dependencies
+###Objetivos
+-Tela de Draft exibi os heróis por ordem de melhores escolhas, também fornece a possibilidade de escolher os jogadores do time, clicar no slot calcula o Rank Pessoal do jogador com cada herói e aplica na tabela, clicar nos slots que não há jogadores apenas ignora o rank pessoal. Aplicar heróis em slots aliados altera a lista de sugestões para sugerir bons aliados para os heróis aplicados. Aplicar heróis em slots inimigos altera a lista de sugestões devido a sugerir bons heróis contra os heróis inimigos aplicados. Aplicar heróis em slots banidos altera a lista de sugestões devido a sugerir heróis que se beneficiam dos banimentos aplicados.
+-Tela de Heróis inicialmente projetada para inserir os heróis e mostrar individualmente os melhores aliados, quais heróis gosta de enfrentar e quais detesta.
+-Tela de Meta exibe os heróis pelo Winrate e pelo MetaScore, o metascore é definido pelo número de partidas profissionais onde o herói é selecionado ou banido, o valor 10 se aplica ao herói mais escolhido ou banido o valor -10 se aplica ao herói 100% ignorado.
+-Tela de Jogadores exibe os jogadores cadastrados no aplicativo.
+-Tela de Configurações tem o botão atualizar o meta, e adicionar jogador também terá o botão atualizar jogadores.
 
-   ```bash
-   npm install
-   ```
+###Bugs
+-Tela de Draft na versão de apk não aplica rank pessoal ainda então a seleção de jogador não afeta em nada.
+-Tela de Heróis, as vezes no mobile o campo de texto tira o focus, simples de resolver ainda preciso melhorar isso, Rolagem da página de Sinergia foi esquecida.
+-Tela de Meta a falta de um cabeçalho dificulta a ordenação na versão apk.
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+###Melhorias
+-Tela de Draft talvez adicionar a imagem do player ao inves do nome do player após ele ser selecionado, principalmente mobile. Refinar a fórmula buscando alcançar valores mais justos, que leve a resultados mais positivos.
+-Tela de Heróis talvez fosse interessante adicionar alguns elementos adicionais a tela de sinergia como vozes do herói ou Lore. Também falta adicionar um botão de redefinir ou voltar quando entramos na tela de sinergia retornar a tela de heróis novamente, há um meio para isso mas não intuitivo.
+-Tela de Jogadores no aplicativo poderia ter uma margem maior acima do cabeçalho, o espaçamento entre jogadores poderia reduzir.
+-O projeto é feito sem banco de dados, apenas com arquivos json. Será criado um banco de dados que será atualizado por requisições json, a atualização ocorrerá apenas se o codigo 200 for retornado. Meta, Jogadores e Heróis.
