@@ -26,6 +26,8 @@ v0.2
 
   
 -Tela de Meta a falta de um cabeçalho dificulta a ordenação na versão apk.  
+  
+-Tabbar está quebrada
 
 ### Melhorias
 -Tela de Draft talvez adicionar a imagem do player ao inves do nome do player após ele ser selecionado, principalmente mobile. Refinar a fórmula buscando alcançar valores mais justos, que leve a resultados mais positivos.  
@@ -36,7 +38,7 @@ v0.2
   
 -Tela de Jogadores no aplicativo poderia ter uma margem maior acima do cabeçalho, o espaçamento entre jogadores poderia reduzir.  
 
-##Algumas Especificidades do Projeto  
+## Algumas Especificidades do Projeto  
 - O projeto é feito sem banco de dados, apenas com arquivos json. Será criado um banco de dados que será atualizado por requisições json, a atualização ocorrerá apenas se o codigo 200 for retornado. Meta, Jogadores e Heróis.  
   
 

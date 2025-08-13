@@ -80,7 +80,7 @@ const Heroes = () => {
     <View style={styles.container}>
 {selectedHeroId === null && (
   <>
-    <Text style={styles.title}>Herois</Text>
+    <Text style={styles.title}>Heróis</Text>
     <TextInput
       style={styles.input}
       placeholder="Buscar herói..."

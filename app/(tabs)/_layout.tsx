@@ -3,7 +3,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -14,28 +14,21 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+            tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 14,
           textAlign: 'center',
-          flexWrap: 'nowrap',
+          marginBottom: 0,
         },
-tabBarStyle: Platform.select({
-  ios: {
-    position: 'absolute',
-    height: 60,
-    paddingBottom: 6,
-  },
-  android: {
-    height: 60,
-    paddingBottom: 6,
-  },
-  default: {},
-}),
-
+        tabBarStyle: {
+          height: 50,
+          paddingBottom: Platform.OS === 'android' ? 4 : 6,
+          backgroundColor: '#1e1e2f',
+          borderTopWidth: 0,
+        },
       }}
     >
       <Tabs.Screen
@@ -44,42 +37,28 @@ tabBarStyle: Platform.select({
           title: 'Draft',
         }}
       />
-
       <Tabs.Screen
         name="heroes"
         options={{
           title: 'Heróis',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
-          ),
         }}
       />
-
-            <Tabs.Screen
+      <Tabs.Screen
         name="meta"
         options={{
           title: 'Meta',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
-          ),
         }}
       />
-            <Tabs.Screen
+      <Tabs.Screen
         name="players"
         options={{
           title: 'Jogadores',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
-          ),
         }}
       />
-                  <Tabs.Screen
+      <Tabs.Screen
         name="config"
         options={{
           title: 'Configurações',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
-          ),
         }}
       />
       <Tabs.Screen
@@ -89,6 +68,5 @@ tabBarStyle: Platform.select({
         }}
       />
     </Tabs>
-    
   );
 }
