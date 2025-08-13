@@ -42,4 +42,5 @@ v0.2
 - O projeto é feito sem banco de dados, apenas com arquivos json. Será criado um banco de dados que será atualizado por requisições json, a atualização ocorrerá apenas se o codigo 200 for retornado. Meta, Jogadores e Heróis.  
   
 
--O projeto web está rodando bem na versão web local, mas ainda existem problemas na versao de build -web principalmente em relação a renderização que não foi arrumada newdota-avadraft.vercel.app
+-O projeto web está rodando bem na versão web local, mas ainda existem problemas na versao de build -web principalmente em relação a renderização que não foi arrumada [avadrafter.vercel.app
+](https://avadrafter.vercel.app/)
