@@ -87,7 +87,9 @@ const processed = rawData.map((hero: MetaHero) => {
 
 return (
   <ScrollView style={styles.scroll}>
+            <Text style={styles.heading}>Meta</Text>
     <View style={styles.container}>
+      
       <View style={styles.headerRow}>
         <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("localized_name")}>
           <Text style={styles.headerText}>Herói</Text>
@@ -127,12 +129,11 @@ export default MetaTable;
 
 const styles = StyleSheet.create({
   container: {
-  
     padding: 12,
     backgroundColor: "#1e1e2f",
-    maxWidth:600,
-    width:"100%",
-      alignSelf: "center",
+    maxWidth: 600,
+    width: "100%",
+    alignSelf: "center",
   },
   title: {
     fontSize: 22,
@@ -140,20 +141,20 @@ const styles = StyleSheet.create({
     color: "#f0f0f0",
     marginBottom: 12,
   },
-headerRow: {
-  flexDirection: "row",
-  borderBottomWidth: 1,
-  borderColor: "#444",
-  paddingBottom: 6,
-  marginBottom: 6,
-  alignItems: "center",
-},
-headerCell: {
-  flex: 1,
-  fontWeight: "bold",
-  color: "#f0f0f0",
-  textAlign: "center",
-},
+  headerRow: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderColor: "#444",
+    paddingBottom: 6,
+    marginBottom: 6,
+    alignItems: "center",
+  },
+  headerCell: {
+    flex: 1,
+    fontWeight: "bold",
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
 
   row: {
     flexDirection: "row",
@@ -182,16 +183,24 @@ headerCell: {
     color: "#f0f0f0",
     fontSize: 14,
   },
-    secondColumnOffset: {
-    paddingLeft: 50,   // ajuste esse valor conforme a distância desejada
+  secondColumnOffset: {
+    paddingLeft: 50, // ajuste esse valor conforme a distância desejada
   },
   headerText: {
-  fontWeight: "bold",
-  color: "#f0f0f0",
-  textAlign: "center",
-},
-scroll: {
-  flex: 1,
-  backgroundColor: "#1e1e2f",
-},
+    fontWeight: "bold",
+    color: "#f0f0f0",
+    textAlign: "center",
+  },
+  scroll: {
+    flex: 1,
+    backgroundColor: "#1e1e2f",
+  },
+  heading: {
+    marginTop: 12,
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#f5f5f5",
+    marginBottom: 12,
+    textAlign: "center",
+  },
 });

@@ -20,7 +20,7 @@ export default function HeroSlot({ hero, onSelect }: Props) {
 }
 
 const styles = StyleSheet.create({
-  slot: { width: 60, height: 60, margin: 4 },
+  slot: { width: 60, height: 60, margin: 1 },
   image: { width: "100%", height: "100%", borderRadius: 8 },
   placeholder: { flex: 1, backgroundColor: "#444", borderRadius: 8 }
 });

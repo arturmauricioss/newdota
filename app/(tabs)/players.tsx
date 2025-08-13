@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 10,
+    maxWidth:900,
   },
   card: {
     backgroundColor: "#dadadaff",

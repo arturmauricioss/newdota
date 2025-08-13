@@ -102,7 +102,9 @@ const Heroes = () => {
   
 
       {synergy && currentHero && (
-        <ScrollView style={styles.details}>
+<ScrollView
+  style={styles.details}
+  contentContainerStyle={{ alignItems: "center" }}>
               <TextInput
       style={styles.input}
       placeholder="Buscar herói..."
@@ -253,7 +255,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   details: {
-    alignItems: "center",
     marginTop: 24,
   },
   heroName: {
@@ -277,11 +278,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#f0f0f0",
     marginBottom: 8,
+    marginTop:16,
+    textAlign: "center",
   },
   synergyGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   synergyItem: {
     width: "17%",

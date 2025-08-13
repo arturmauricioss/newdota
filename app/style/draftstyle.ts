@@ -47,12 +47,14 @@ export const draftStyles = StyleSheet.create({
   slotWrapper: {
     margin: 1,
     width: "18%",
+    
   },
   banSection: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     marginBottom: 16,
+    gap: 0,
   },
   tableSection: {
     marginVertical: 16,
