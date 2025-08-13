@@ -23,21 +23,25 @@ export default function TabLayout() {
           textAlign: 'center',
           flexWrap: 'nowrap',
         },
-        tabBarStyle: Platform.select({
-          ios: {
-            position: 'absolute',
-          },
-          default: {},
-        }),
+tabBarStyle: Platform.select({
+  ios: {
+    position: 'absolute',
+    height: 60,
+    paddingBottom: 6,
+  },
+  android: {
+    height: 60,
+    paddingBottom: 6,
+  },
+  default: {},
+}),
+
       }}
     >
       <Tabs.Screen
         name="draft"
         options={{
           title: 'Draft',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
-          ),
         }}
       />
 
