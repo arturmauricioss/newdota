@@ -22,7 +22,7 @@ const PlayerSelect: React.FC<PlayerSelectProps> = ({
   onChange={(e) => onChange(Number(e.target.value))}
   disabled={disabled}
   style={{
-    width: 80,       // controla a largura
+    width:60,      // controla a largura
     fontSize: 14,       // tamanho da fonte
     padding: "4px 8px", // espaçamento interno
     color: "#f0f0f0",
