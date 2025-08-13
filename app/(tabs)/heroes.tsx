@@ -4,6 +4,7 @@ import {
   Image,
   LayoutAnimation,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -101,7 +102,7 @@ const Heroes = () => {
   
 
       {synergy && currentHero && (
-        <View style={styles.details}>
+        <ScrollView style={styles.details}>
               <TextInput
       style={styles.input}
       placeholder="Buscar herói..."
@@ -189,7 +190,7 @@ const Heroes = () => {
 
             </View>
           </View>
-        </View>
+        </ScrollView>
       )}
 
 
