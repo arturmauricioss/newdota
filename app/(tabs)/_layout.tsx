@@ -21,14 +21,17 @@ tabBarBackground: TabBarBackground,
 tabBarLabelStyle: {
 fontSize: 12,
 textAlign: 'center',
-flexWrap: 'nowrap',
+// flexWrap: 'nowrap',
 },
-tabBarStyle: Platform.select({
-ios: {
-position: 'absolute',
+tabBarStyle: {
+  height: 50,
+  paddingBottom: Platform.OS === 'android' ? 4 : 6,
+  paddingTop: Platform.OS === 'android' ? 4 : 6,
+  backgroundColor: '#1e1e2f',
+  borderTopWidth: 0,
+  borderTopColor: '#1e1e2f',
 },
-default: {},
-}),
+
 }}
 >
 <Tabs.Screen
