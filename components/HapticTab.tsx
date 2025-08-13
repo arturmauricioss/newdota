@@ -7,12 +7,15 @@ export function HapticTab(props: BottomTabBarButtonProps) {
   return (
     <PlatformPressable
       {...props}
+      style={[props.style, { alignItems: 'center', justifyContent: 'center' }]}
       onPressIn={(ev: GestureResponderEvent) => {
         if (process.env.EXPO_OS === 'ios') {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }
         props.onPressIn?.(ev);
       }}
-    />
+    >
+      {props.children}
+    </PlatformPressable>
   );
 }
