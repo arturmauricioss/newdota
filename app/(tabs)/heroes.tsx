@@ -285,6 +285,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    gap:1,
   },
   synergyItem: {
     width: "17%",
