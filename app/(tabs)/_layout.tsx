@@ -36,7 +36,7 @@ name="draft"
 options={{
 title: 'Draft',
 tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={28} name="person.3.fill" color={color} />
+<IconSymbol size={0} name="person.3.fill" color={color} />
 ),
 }}
 />
