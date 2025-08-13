@@ -2,11 +2,11 @@ import { Dimensions, StyleSheet } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
 export const totalTableWidth =
-  140 + // Herói
+  // 0 + // Herói
   40 + // Final
   40 + // Pessoal
   40 + // Meta
-  40 + // Sinergia
+  // 40 + // Sinergia
   40 + // Aliado
   40 + // Inimigo
   40;  // Bans
@@ -88,7 +88,7 @@ export const draftStyles = StyleSheet.create({
     marginHorizontal: 8,
   },
   tableCell: {
-    width: 120,
+    width: 50,
     fontSize: 13,
     color: "#f0f0f0",
     textAlign: "left",
@@ -106,50 +106,50 @@ export const draftStyles = StyleSheet.create({
     width: "18%",
   },
   cellName: {
-    width: 140,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "left",
     paddingHorizontal: 4,
   },
   cellFinal: {
-    width: 70,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
   },
   cellRP: {
-    width: 70,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
   },
   cellScore: {
-    width: 70,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
   },
   cellSynergy: {
-    width: 80,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
   },
   cellAlly: {
-    width: 70,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
   },
   cellEnemy: {
-    width: 70,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
   },
   cellBan: {
-    width: 70,
+    width: 50,
     fontSize: 12,
     color: "#f0f0f0",
     textAlign: "center",
@@ -157,13 +157,14 @@ export const draftStyles = StyleSheet.create({
   heroCell: {
     flexDirection: "row",
     alignItems: "center",
-    width: 140,
+    width: 50,
   },
   heroImage: {
     width: 32,
     height: 32,
     marginRight: 8,
     borderRadius: 4,
+
   },
   heroName: {
     fontSize: 14,

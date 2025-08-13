@@ -150,7 +150,7 @@ const toggleSort = (key: keyof RankedHero) => {
             >
 <View style={styles.heroCell}>
   <Image source={{ uri: hero.img }} style={styles.heroImage} />
-  <Text style={styles.heroName}>{hero.localized_name}</Text>
+  {/* <Text style={styles.heroName}>{hero.localized_name}</Text> */}
 </View>
 
 <Text style={styles.cellFinal}>{hero.finalScore.toFixed(1)}</Text>
