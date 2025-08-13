@@ -46,6 +46,7 @@ export default function Players() {
         <Pressable
           style={styles.addButton}
           onPress={() => router.push("/config")}
+
         >
           <Text style={styles.addButtonText}>➕</Text>
         </Pressable>
