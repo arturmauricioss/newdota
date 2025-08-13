@@ -1,7 +1,14 @@
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Props, RankedHero } from "../types";
-
+const webScrollWrapperStyle = Platform.select({
+  web: {
+    overflowX: "scroll",
+    display: "flex",
+    width: "100%",
+  },
+  default: {},
+});
 export const HeroSuggestions = ({
   suggestions,
   sortKey,
@@ -64,7 +71,11 @@ const toggleSort = (key: keyof RankedHero) => {
     <View style={styles.tableSection}>
       <Text style={styles.subTitle}>Sugestões de Heróis</Text>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+<ScrollView
+  horizontal
+  showsHorizontalScrollIndicator={true}
+  contentContainerStyle={Platform.OS === "web" ? { minWidth: 300 } : undefined}
+>
         <View style={styles.tableContainer}>
           {/* Cabeçalho com nova ordem */}
 <View style={styles.tableHeader}>
@@ -84,11 +95,11 @@ const toggleSort = (key: keyof RankedHero) => {
       Meta {sortKey === "displayScore" ? (sortAsc ? "↑" : "↓") : ""}
     </Text>
   </TouchableOpacity>
-  <TouchableOpacity onPress={() => toggleSort("totalSynergy")}>
+  {/* <TouchableOpacity onPress={() => toggleSort("totalSynergy")}>
     <Text style={styles.cellSynergy}>
       Sinergia {sortKey === "totalSynergy" ? (sortAsc ? "↑" : "↓") : ""}
     </Text>
-  </TouchableOpacity>
+  </TouchableOpacity> */}
   <TouchableOpacity onPress={() => toggleSort("synergyWithAlly")}>
     <Text style={styles.cellAlly}>
       Aliado {sortKey === "synergyWithAlly" ? (sortAsc ? "↑" : "↓") : ""}
@@ -143,7 +154,7 @@ const toggleSort = (key: keyof RankedHero) => {
 <Text style={styles.cellFinal}>{hero.finalScore.toFixed(1)}</Text>
 <Text style={styles.cellRP}>{hero.playerRP.toFixed(1)}</Text>
 <Text style={styles.cellScore}>{hero.displayScore}</Text>
-<Text style={styles.cellSynergy}>{hero.totalSynergy.toFixed(1)}</Text>
+{/* <Text style={styles.cellSynergy}>{hero.totalSynergy.toFixed(1)}</Text> */}
 <Text style={styles.cellAlly}>{hero.synergyWithAlly.toFixed(1)}</Text>
 <Text style={styles.cellEnemy}>{hero.synergyVsEnemy.toFixed(1)}</Text>
 <Text style={styles.cellBan}>{hero.synergyFromBans.toFixed(1)}</Text>
@@ -151,6 +162,7 @@ const toggleSort = (key: keyof RankedHero) => {
           ))}
         </View>
       </ScrollView>
-    </View>
+      </View>
+
   );
 };

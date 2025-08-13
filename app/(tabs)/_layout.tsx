@@ -1,38 +1,36 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-
+const screenWidth = Dimensions.get('window').width;
+const dynamicFontSize = screenWidth < 768 ? 10 : 12;
 export default function TabLayout() {
 const colorScheme = useColorScheme();
 
 return (
 <Tabs
-screenOptions={{
-tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-headerShown: false,
-tabBarButton: HapticTab,
-tabBarBackground: TabBarBackground,
-tabBarLabelStyle: {
-fontSize: 12,
-textAlign: 'center',
-// flexWrap: 'nowrap',
-},
-tabBarStyle: {
-  height: 50,
-  paddingBottom: Platform.OS === 'android' ? 4 : 6,
-  paddingTop: Platform.OS === 'android' ? 4 : 6,
-  backgroundColor: '#1e1e2f',
-  borderTopWidth: 0,
-  borderTopColor: '#1e1e2f',
-},
-
-}}
+  screenOptions={{
+    tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+    headerShown: false,
+    // tabBarButton: HapticTab, // ❌ comenta para testar
+    tabBarBackground: TabBarBackground,
+    tabBarLabelStyle: {
+      fontSize: dynamicFontSize,
+      textAlign: 'center',
+    },
+    tabBarStyle: {
+      height: 70,
+      width: "100%",
+      justifyContent: 'center',
+      paddingBottom: Platform.OS === 'android' ? 0: 0,
+      paddingTop: Platform.OS === 'android' ? 0 : 0,
+      backgroundColor: '#1e1e2f',
+      borderTopWidth: 1,
+    },
+  }}
 >
 <Tabs.Screen
 name="draft"
@@ -67,16 +65,14 @@ tabBarIcon: () => null,
                   <Tabs.Screen
         name="config"
         options={{
-          title: 'Configurações',
-          tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={0} name="person.3.fill" color={color} />
-          ),
+          title: 'Configurações',tabBarIcon: () => null,
         }}
 />
 <Tabs.Screen
 name="index"
 options={{
-href: null, // ❌ remove da tab bar
+href: null,
+tabBarIcon: () => null, // ❌ remove da tab bar
 }}
 />
 </Tabs>
