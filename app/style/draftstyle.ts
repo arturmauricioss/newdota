@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
-const totalTableWidth =
+export const totalTableWidth =
   140 + // Herói
   40 + // Final
   40 + // Pessoal

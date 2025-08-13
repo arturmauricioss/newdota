@@ -1,6 +1,8 @@
 import React from "react";
 import { Image, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { totalTableWidth } from "../app/style/draftstyle";
 import { Props, RankedHero } from "../types";
+
 const webScrollWrapperStyle = Platform.select({
   web: {
     overflowX: "scroll",
@@ -74,7 +76,7 @@ const toggleSort = (key: keyof RankedHero) => {
 <ScrollView
   horizontal
   showsHorizontalScrollIndicator={true}
-  contentContainerStyle={Platform.OS === "web" ? { minWidth: 300 } : undefined}
+  contentContainerStyle={{ minWidth: totalTableWidth }}
 >
         <View style={styles.tableContainer}>
           {/* Cabeçalho com nova ordem */}
