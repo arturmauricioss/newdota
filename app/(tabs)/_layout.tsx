@@ -46,7 +46,7 @@ name="heroes"
 options={{
 title: 'Heróis',
 tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={28} name="person.3.fill" color={color} />
+<IconSymbol size={0} name="person.3.fill" color={color} />
 ),
 }}
 />
@@ -56,7 +56,7 @@ name="meta"
 options={{
 title: 'Meta',
 tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={28} name="person.3.fill" color={color} />
+<IconSymbol size={0} name="person.3.fill" color={color} />
 ),
 }}
 />
@@ -65,7 +65,7 @@ name="players"
 options={{
 title: 'Jogadores',
 tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={28} name="person.3.fill" color={color} />
+<IconSymbol size={0} name="person.3.fill" color={color} />
 ),
 }}
       />
@@ -74,7 +74,7 @@ tabBarIcon: ({ color }: { color: string }) => (
         options={{
           title: 'Configurações',
           tabBarIcon: ({ color }: { color: string }) => (
-            <IconSymbol size={28} name="person.3.fill" color={color} />
+            <IconSymbol size={0} name="person.3.fill" color={color} />
           ),
         }}
 />
