@@ -35,9 +35,7 @@ default: {},
 name="draft"
 options={{
 title: 'Draft',
-tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={0} name="person.3.fill" color={color} />
-),
+tabBarIcon: () => null,
 }}
 />
 
@@ -45,9 +43,7 @@ tabBarIcon: ({ color }: { color: string }) => (
 name="heroes"
 options={{
 title: 'Heróis',
-tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={0} name="person.3.fill" color={color} />
-),
+tabBarIcon: () => null,
 }}
 />
 
@@ -55,18 +51,14 @@ tabBarIcon: ({ color }: { color: string }) => (
 name="meta"
 options={{
 title: 'Meta',
-tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={0} name="person.3.fill" color={color} />
-),
+tabBarIcon: () => null,
 }}
 />
 <Tabs.Screen
 name="players"
 options={{
 title: 'Jogadores',
-tabBarIcon: ({ color }: { color: string }) => (
-<IconSymbol size={0} name="person.3.fill" color={color} />
-),
+tabBarIcon: () => null,
 }}
       />
                   <Tabs.Screen
