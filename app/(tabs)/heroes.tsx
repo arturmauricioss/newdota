@@ -14,6 +14,7 @@ import {
   View
 } from "react-native";
 import heroesData from "../../assets/heroes_with_images.json";
+import heroLores from "../../assets/lores.json";
 import synergyRaw from "../../assets/synergyMatrix.json";
 
 type Hero = {
@@ -59,6 +60,7 @@ const Heroes = () => {
 
   const synergy = selectedHeroId !== null ? synergyMatrix[String(selectedHeroId)] : null;
   const currentHero = heroesData.find((h: Hero) => h.id === selectedHeroId);
+  const currentHeroLore = heroLores.find((h) => h.id === selectedHeroId)?.lore;
 
 
   const handleSearch = (text: string) => {
@@ -192,6 +194,12 @@ const Heroes = () => {
 
             </View>
           </View>
+          {currentHeroLore && (
+  <View style={styles.loreSection}>
+    <Text style={styles.subTitle}>📜 História</Text>
+    <Text style={styles.loreText}>{currentHeroLore}</Text>
+  </View>
+)}
         </ScrollView>
       )}
 
@@ -278,14 +286,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#f0f0f0",
     marginBottom: 8,
-    marginTop:16,
+    marginTop: 16,
     textAlign: "center",
   },
   synergyGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap:1,
+    gap: 1,
   },
   synergyItem: {
     width: "15%",
@@ -306,5 +314,19 @@ const styles = StyleSheet.create({
   negative: {
     color: "#f44336",
     fontWeight: "bold",
+  },
+  loreSection: {
+    paddingHorizontal: 12,
+    marginTop: 16,
+    marginBottom: 32,
+    maxWidth: 600,
+    minWidth: 200,
+  },
+  loreText: {
+    color: "#f0f0f0",
+    fontSize: 14,
+    lineHeight: 20,
+    textAlign: "center",
+    fontStyle: "italic",
   },
 });
