@@ -10,7 +10,7 @@ v0.2
 -Tela de Heróis inicialmente projetada para inserir os heróis e mostrar individualmente os melhores aliados, quais heróis gosta de enfrentar e quais detesta.  
 
   
--Tela de Meta exibe os heróis pelo Winrate e pelo MetaScore, o metascore é definido pelo número de partidas profissionais onde o herói é selecionado ou banido, o valor 10 se aplica ao herói mais escolhido ou banido o valor -10 se aplica ao herói 100% ignorado.  
+-Tela de Meta exibe os heróis pelo Winrate e pelo MetaScore, o metascore é definido pelo número de partidas profissionais onde o herói é selecionado ou banido, o valor 10 se aplica ao herói mais escolhido + banido o valor -10 se aplica ao herói 100% ignorado.  
 
   
 -Tela de Jogadores exibe os jogadores cadastrados no aplicativo.  
@@ -22,25 +22,24 @@ v0.2
 -Tela de Draft na versão de apk não aplica rank pessoal ainda então a seleção de jogador não afeta em nada.  
 
   
--Tela de Heróis, as vezes no mobile o campo de texto tira o focus, simples de resolver ainda preciso melhorar isso, Rolagem da página de Sinergia foi esquecida.  
+-Tela de Heróis, as vezes no mobile o campo de texto tira o focus, simples de resolver ainda preciso melhorar isso.  
+  
 
-  
--Tela de Meta a falta de um cabeçalho dificulta a ordenação na versão apk.  
-  
--Tabbar está quebrada
+-Jogadores Adicionados na tela de Configurações são aplicados na tela de Jogadores mas não aparecem nos Select Option de Draft será resolvido após o uso de banco de dados.
+
 
 ### Melhorias
--Tela de Draft talvez adicionar a imagem do player ao inves do nome do player após ele ser selecionado, principalmente mobile. Refinar a fórmula buscando alcançar valores mais justos, que leve a resultados mais positivos.  
+-Tela de Draft talvez adicionar a imagem do player ao inves do nome do player após ele ser selecionado, principalmente mobile. Refinar a fórmula buscando alcançar valores mais justos, que leve a resultados mais realistas e induzam o usuário a resultados mais positivos.  
 
   
--Tela de Heróis talvez fosse interessante adicionar alguns elementos adicionais a tela de sinergia como vozes do herói ou Lore. Também falta adicionar um botão de redefinir ou voltar quando entramos na tela de sinergia retornar a tela de heróis novamente, há um meio para isso mas não intuitivo.  
+-Tela de Heróis talvez fosse interessante adicionar alguns elementos adicionais a página de sinergia como vozes do herói ou Lore. Também falta adicionar um botão de redefinir ou voltar quando entramos na tela de sinergia retornar a tela de heróis novamente, há um meio para isso mas não intuitivo(digitar e apagar na pesquisa).  
 
   
--Tela de Jogadores no aplicativo poderia ter uma margem maior acima do cabeçalho, o espaçamento entre jogadores poderia reduzir.  
-
 ## Algumas Especificidades do Projeto  
 - O projeto é feito sem banco de dados, apenas com arquivos json. Será criado um banco de dados que será atualizado por requisições json, a atualização ocorrerá apenas se o codigo 200 for retornado. Meta, Jogadores e Heróis.  
   
 
--O projeto web está rodando bem na versão web local, mas ainda existem problemas na versao de build -web principalmente em relação a renderização que não foi arrumada [avadrafter.vercel.app
-](https://avadrafter.vercel.app/)
+-O projeto web está rodando bem na versão web local, mas ainda existem problemas na versao de build -web principalmente em relação a renderização que não está sendo arrumada [avadrafter.vercel.app
+](https://avadrafter.vercel.app/)>
+
+-A versão direta do apk também será adicionada ao repositório em breve, os Jogadores serão Limpos para se tornar um aplicativo pessoal, onde cada usuário poderá incluir os jogadores do seu time manualmente.
