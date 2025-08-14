@@ -47,7 +47,7 @@ export const draftStyles = StyleSheet.create({
   slotWrapper: {
     margin: 1,
     width: "18%",
-    
+    marginHorizontal: 2,
     
   },
   banSection: {
@@ -180,8 +180,8 @@ export const draftStyles = StyleSheet.create({
   },
 synergyItem: {
   width: "15%",
-  alignItems: "center",
-  marginBottom: 12,
+  alignItems: "flex-start",
+  marginBottom: 0,
   marginHorizontal: 8,
 },
 

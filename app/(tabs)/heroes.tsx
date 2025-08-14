@@ -288,9 +288,10 @@ const styles = StyleSheet.create({
     gap:1,
   },
   synergyItem: {
-    width: "17%",
+    width: "15%",
     alignItems: "center",
     marginBottom: 12,
+    marginHorizontal: 6,
   },
   partnerImage: {
     width: 60,
