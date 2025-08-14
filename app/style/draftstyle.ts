@@ -48,6 +48,7 @@ export const draftStyles = StyleSheet.create({
     margin: 1,
     width: "18%",
     
+    
   },
   banSection: {
     flexDirection: "row",
@@ -177,4 +178,12 @@ export const draftStyles = StyleSheet.create({
     minWidth: totalTableWidth,
     alignSelf: "center", // centraliza dentro do pai
   },
+synergyItem: {
+  width: "15%",
+  alignItems: "center",
+  marginBottom: 12,
+  marginHorizontal: 8,
+},
+
+
 });

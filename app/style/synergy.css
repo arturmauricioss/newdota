@@ -51,13 +51,20 @@ select {
 }
 
 .synergy-item {
-  width: 120px;
+  width: "17%";
   text-align: center;
   background-color: #292a3d;
   border-radius: 8px;
   padding: 0.5rem;
+  margin: 8;
   box-shadow: 0 0 4px rgba(0,0,0,0.2);
 }
+/* synergyItem: {
+  width: "17%",
+  alignItems: "center",
+  marginBottom: 12,
+  marginHorizontal: 6, // ✅ espaçamento lateral entre os cards
+}, */
 
 .partner-image {
   width: 80px;
