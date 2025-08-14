@@ -1,4 +1,4 @@
-v0.2
+v0.5.4
 
 # Projeto para Dota 2
 
@@ -7,7 +7,7 @@ v0.2
 ### Objetivos
 -Tela de Draft exibi os heróis por ordem de melhores escolhas, também fornece a possibilidade de escolher os jogadores do time, clicar no slot calcula o Rank Pessoal do jogador com cada herói e aplica na tabela, clicar nos slots que não há jogadores apenas ignora o rank pessoal. Aplicar heróis em slots aliados altera a lista de sugestões para sugerir bons aliados para os heróis aplicados. Aplicar heróis em slots inimigos altera a lista de sugestões devido a sugerir bons heróis contra os heróis inimigos aplicados. Aplicar heróis em slots banidos altera a lista de sugestões devido a sugerir heróis que se beneficiam dos banimentos aplicados.  
   
--Tela de Heróis inicialmente projetada para inserir os heróis e mostrar individualmente os melhores aliados, quais heróis gosta de enfrentar e quais detesta.  
+-Tela de Heróis inicialmente projetada para inserir os heróis e mostrar individualmente os melhores aliados, quais heróis gosta de enfrentar e quais detesta, também exibe a lore. 
 
   
 -Tela de Meta exibe os heróis pelo Winrate e pelo MetaScore, o metascore é definido pelo número de partidas profissionais onde o herói é selecionado ou banido, o valor 10 se aplica ao herói mais escolhido + banido o valor -10 se aplica ao herói 100% ignorado.  
@@ -25,7 +25,7 @@ v0.2
 -Tela de Heróis, as vezes no mobile o campo de texto tira o focus, simples de resolver ainda preciso melhorar isso.  
   
 
--Jogadores Adicionados na tela de Configurações são aplicados na tela de Jogadores mas não aparecem nos Select Option de Draft será resolvido após o uso de banco de dados.
+-Jogadores Adicionados na tela de Configurações são aplicados corretamente na tela de Jogadores mas não aparecem nos Select Option de Draft será resolvido após o uso de banco de dados.
 
 
 ### Melhorias

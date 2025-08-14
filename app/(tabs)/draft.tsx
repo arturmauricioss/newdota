@@ -193,7 +193,16 @@ const suggestions: RankedHero[] = sortedHeroes.filter(
           team={allyTeam}
           type="ally"
           title="Time Aliado"
-          onSelect={(index) => setSelectedSlot({ type: "ally", index, playerId: index })}
+          onSelect={(index) => {
+    if (allyTeam[index]) {
+      const newTeam = [...allyTeam];
+      newTeam[index] = null;
+      setAllyTeam(newTeam);
+      setSelectedSlot(null); // opcional: desmarcar slot
+    } else {
+      setSelectedSlot({ type: "ally", index, playerId: index });
+    }
+  }}
           styles={styles}
         />
 
@@ -201,13 +210,31 @@ const suggestions: RankedHero[] = sortedHeroes.filter(
           team={enemyTeam}
           type="enemy"
           title="Time Inimigo"
-          onSelect={(index) => setSelectedSlot({ type: "enemy", index, playerId: index })}
+          onSelect={(index) => {
+    if (enemyTeam[index]) {
+      const newTeam = [...enemyTeam];
+      newTeam[index] = null;
+      setEnemyTeam(newTeam);
+      setSelectedSlot(null);
+    } else {
+      setSelectedSlot({ type: "enemy", index, playerId: index });
+    }
+  }}
           styles={styles}
         />
 
         <BanSelector
           bans={bans}
-          onSelect={(index) => setSelectedSlot({ type: "ban", index, playerId: index })}
+          onSelect={(index) => {
+    if (bans[index]) {
+      const newBans = [...bans];
+      newBans[index] = null;
+      setBans(newBans);
+      setSelectedSlot(null);
+    } else {
+      setSelectedSlot({ type: "ban", index, playerId: index });
+    }
+  }}
           styles={styles}
         />
 <HeroSuggestions

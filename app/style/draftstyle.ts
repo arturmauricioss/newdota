@@ -54,8 +54,9 @@ export const draftStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    marginBottom: 16,
+    marginBottom: 8,
     gap: 0,
+    maxWidth: 360,
   },
   tableSection: {
     marginVertical: 16,
