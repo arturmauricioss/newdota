@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 10,
+    gap: 3,
     maxWidth:900,
   },
   card: {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     minWidth: 80,
-    margin: 6,
+    margin: 3,
   },
   cardHovered: {
     backgroundColor: "#e0e0e0",
