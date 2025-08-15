@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
-import PlayerSelect from "./PlayerSelect";
 import { PlayerProfile } from "../types";
+import PlayerSelect from "./PlayerSelect";
 
 export const PlayersSection = ({
   players,
@@ -9,29 +9,36 @@ export const PlayersSection = ({
   availablePlayers,
   styles,
   calculateRP,
+  playersData,
 }: {
   players: PlayerProfile[];
   setPlayers: React.Dispatch<React.SetStateAction<PlayerProfile[]>>;
   availablePlayers: { id: number; name: string }[];
   styles: any;
   calculateRP: (games: number, win: number) => number;
+  playersData: {
+    [playerId: string]: {
+      hero_id: number;
+      games: number;
+      win: number;
+    }[];
+  };
 }) => (
   <View style={styles.playersRow}>
     {players.map((player, i) => (
       <View key={i} style={styles.playerSelectWrapper}>
         <PlayerSelect
           value={player.preferences?.[0] ? Number(player.preferences[0]) : null}
-          onChange={async (playerId) => {
-            let stats: Record<number, number> = {};
-            try {
-              const res = await fetch(`/data/players/${playerId}.json`);
-              const data = await res.json();
-              data.forEach((entry: any) => {
+          onChange={(playerId) => {
+            const rawStats = playersData[playerId];
+            const stats: Record<number, number> = {};
+
+            if (rawStats) {
+              rawStats.forEach((entry) => {
                 stats[entry.hero_id] = calculateRP(entry.games, entry.win);
               });
-            } catch (err) {
-              console.error("Erro ao carregar stats do jogador:", err);
             }
+
             setPlayers((prev) =>
               prev.map((p, idx) =>
                 idx === i ? { ...p, preferences: [String(playerId)], stats } : p

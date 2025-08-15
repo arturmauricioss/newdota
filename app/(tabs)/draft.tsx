@@ -262,4 +262,3 @@ export default function DraftPage() {
   </SafeAreaView>
 );
 }
-export default DraftPage;
