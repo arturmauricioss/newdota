@@ -15,7 +15,9 @@ import {
 import heroesData from "../../assets/heroes_with_images.json";
 import heroLores from "../../assets/lores.json";
 import synergyRaw from "../../assets/synergyMatrix.json";
+import ScrollPapiro from "../../components/ScrollPapiro"; // ajuste o caminho conforme necessário
 import { heroesStyles as styles } from "../style/heroesstyle";
+
 type Hero = {
   id: number;
   localized_name: string;
@@ -212,16 +214,13 @@ const Heroes = () => {
                 })}
             </View>
           </View>
-          {currentHeroLore && (
-            <View style={styles.scrollContainer}>
-              {/* Pergaminho completo */}
-              <View style={styles.scrollCurveTop} />
-              <View style={styles.scrollBody}>
-                <Text style={styles.scrollText}>{currentHeroLore}</Text>
-              </View>
-              <View style={styles.scrollCurveBottom} />
-            </View>
-          )}
+          <Text style={styles.subTitle}>História</Text>
+          <View style={{ marginVertical: 24 }}>
+            <ScrollPapiro
+              text={currentHeroLore ?? ""}
+              width={Math.min(Math.max(320, screenWidth * 0.8), 600)}
+            />
+          </View>
         </ScrollView>
       )}
     </View>
