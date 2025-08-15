@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   addButton: {
-    backgroundColor: "#00ff2aff",
+    backgroundColor: "#7f7",
     padding: 12,
     borderRadius: 8,
   },
   addButtonText: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: 12,
     fontWeight: "600",
   },
 });

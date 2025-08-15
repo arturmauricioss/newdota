@@ -20,11 +20,17 @@ export const heroesStyles = StyleSheet.create({
     backgroundColor: "#2b2c3b",
     borderRadius: 8,
     paddingHorizontal: 12,
+    paddingVertical: 8,
     color: "#f0f0f0",
+    fontSize: 16,
+    lineHeight: 20,
     marginBottom: 12,
+    includeFontPadding: false,
+    textAlignVertical: "center",
   },
+
   grid: {
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   card: {
     width: 80,
@@ -34,6 +40,8 @@ export const heroesStyles = StyleSheet.create({
     backgroundColor: "#2b2c3b",
     borderRadius: 8,
     padding: 6,
+    borderWidth: 1,
+    borderColor: "#444",
   },
   image: {
     width: 64,
@@ -120,6 +128,4 @@ export const heroesStyles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
   },
-
-
 });

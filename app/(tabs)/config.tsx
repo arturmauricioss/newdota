@@ -53,7 +53,7 @@ export default function ConfigScreen() {
           Alert.alert("✅ Meta atualizada!");
         }}
       >
-        <Text style={styles.buttonText}>🎯 Atualizar Meta</Text>
+        <Text style={styles.buttonText}>Atualizar Meta</Text>
       </TouchableOpacity>
 
       <View style={styles.divider} />

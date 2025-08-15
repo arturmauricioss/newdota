@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   handle: {
     width: 10,
     backgroundColor: "#5c3b1a",
-    borderRadius: 10,
+    borderRadius: 8,
     marginHorizontal: 0,
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Ringbearer",
     color: "#3e2f1c",
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: 14,
+    lineHeight: 18,
     textAlign: "center",
   },
 });

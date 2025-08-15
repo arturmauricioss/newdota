@@ -1,4 +1,4 @@
-v0.5.4
+v0.5.6
 
 # Projeto para Dota 2
 
