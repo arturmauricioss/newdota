@@ -2,7 +2,6 @@ import React from "react";
 import { Text, View } from "react-native";
 import { RankedHero } from "../types";
 
-
 export const SortHeader = ({
   sortKey,
   sortAsc,

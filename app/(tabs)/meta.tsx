@@ -1,11 +1,11 @@
-
 import React, { useEffect, useState } from "react";
 import {
-  Image, ScrollView,
+  Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { loadHeroMeta } from "../../public/data/utils/loadHeroMeta"; // ajuste o caminho conforme sua estrutura
 
@@ -28,39 +28,39 @@ const MetaTable = () => {
   const [sortKey, setSortKey] = useState<SortKey>("metaScore");
   const [sortAsc, setSortAsc] = useState(false);
 
-useEffect(() => {
-  const loadMeta = async () => {
-    try {
-      const rawData = await loadHeroMeta();
+  useEffect(() => {
+    const loadMeta = async () => {
+      try {
+        const rawData = await loadHeroMeta();
 
-const rawScores = rawData.map((hero: MetaHero) =>
-  (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0)
-);
-const maxScore = Math.max(...rawScores);
+        const rawScores = rawData.map(
+          (hero: MetaHero) => (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0)
+        );
+        const maxScore = Math.max(...rawScores);
 
-const processed = rawData.map((hero: MetaHero) => {
-  const rawMeta = (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0);
-  const normalizedMeta = maxScore > 0
-    ? (rawMeta / maxScore) * 20 - 10
-    : 0;
+        const processed = rawData.map((hero: MetaHero) => {
+          const rawMeta = (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0);
+          const normalizedMeta =
+            maxScore > 0 ? (rawMeta / maxScore) * 20 - 10 : 0;
 
-  return {
-    ...hero,
-    winRate: parseFloat(((hero.pub_win / hero.pub_pick) * 100).toFixed(2)),
-    metaScore: parseFloat(normalizedMeta.toFixed(2)),
-  };
-});
+          return {
+            ...hero,
+            winRate: parseFloat(
+              ((hero.pub_win / hero.pub_pick) * 100).toFixed(2)
+            ),
+            metaScore: parseFloat(normalizedMeta.toFixed(2)),
+          };
+        });
 
-      setHeroes(processed);
-    } catch (error) {
-      console.error("Erro ao carregar meta:", error);
-      setHeroes([]);
-    }
-  };
+        setHeroes(processed);
+      } catch (error) {
+        console.error("Erro ao carregar meta:", error);
+        setHeroes([]);
+      }
+    };
 
-  loadMeta();
-}, []);
-
+    loadMeta();
+  }, []);
 
   const sortedHeroes = [...heroes].sort((a, b) => {
     let result = 0;
@@ -85,44 +85,51 @@ const processed = rawData.map((hero: MetaHero) => {
     }
   };
 
-return (
-  <ScrollView style={styles.scroll}>
-            <Text style={styles.heading}>Meta</Text>
-    <View style={styles.container}>
-      
-      <View style={styles.headerRow}>
-        <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("localized_name")}>
-          <Text style={styles.headerText}>Herói</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.headerCell, styles.secondColumnOffset]}
-          onPress={() => handleSort("winRate")}
-        >
-          <Text style={styles.headerText}>Win Rate</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.headerCell} onPress={() => handleSort("metaScore")}>
-          <Text style={styles.headerText}>Meta Score</Text>
-        </TouchableOpacity>
-      </View>
-
-      {sortedHeroes.map((hero) => (
-        <View key={hero.id} style={styles.row}>
-          <View style={styles.heroCell}>
-            <Image
-              source={{ uri: `https://cdn.cloudflare.steamstatic.com${hero.img}` }}
-              style={styles.heroImg}
-            />
-            <Text style={styles.heroName}>{hero.localized_name}</Text>
-          </View>
-          <Text style={[styles.cell, styles.secondColumnOffset]}>{hero.winRate}</Text>
-          <Text style={styles.cell}>{hero.metaScore}</Text>
+  return (
+    <ScrollView style={styles.scroll}>
+      <Text style={styles.heading}>Meta</Text>
+      <View style={styles.container}>
+        <View style={styles.headerRow}>
+          <TouchableOpacity
+            style={styles.headerCell}
+            onPress={() => handleSort("localized_name")}
+          >
+            <Text style={styles.headerText}>Herói</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.headerCell, styles.secondColumnOffset]}
+            onPress={() => handleSort("winRate")}
+          >
+            <Text style={styles.headerText}>Win Rate</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.headerCell}
+            onPress={() => handleSort("metaScore")}
+          >
+            <Text style={styles.headerText}>Meta Score</Text>
+          </TouchableOpacity>
         </View>
-      ))}
-    </View>
-  </ScrollView>
-);
 
-
+        {sortedHeroes.map((hero) => (
+          <View key={hero.id} style={styles.row}>
+            <View style={styles.heroCell}>
+              <Image
+                source={{
+                  uri: `https://cdn.cloudflare.steamstatic.com${hero.img}`,
+                }}
+                style={styles.heroImg}
+              />
+              <Text style={styles.heroName}>{hero.localized_name}</Text>
+            </View>
+            <Text style={[styles.cell, styles.secondColumnOffset]}>
+              {hero.winRate}
+            </Text>
+            <Text style={styles.cell}>{hero.metaScore}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
 };
 
 export default MetaTable;

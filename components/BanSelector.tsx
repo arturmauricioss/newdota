@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
 import BanSlot from "./BanSlot";
 
 export const BanSelector = ({
@@ -16,10 +16,7 @@ export const BanSelector = ({
     <View style={styles.banSection}>
       {bans.map((ban, i) => (
         <View key={`ban-${i}`} style={styles.slotWrapper}>
-          <BanSlot
-            hero={ban}
-            onSelect={() => onSelect(i)}
-          />
+          <BanSlot hero={ban} onSelect={() => onSelect(i)} />
         </View>
       ))}
     </View>

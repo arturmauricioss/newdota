@@ -46,7 +46,6 @@ export default function Players() {
         <Pressable
           style={styles.addButton}
           onPress={() => router.push("/config")}
-
         >
           <Text style={styles.addButtonText}>➕</Text>
         </Pressable>
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 3,
-    maxWidth:900,
+    maxWidth: 900,
   },
   card: {
     backgroundColor: "#dadadaff",

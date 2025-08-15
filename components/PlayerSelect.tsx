@@ -17,28 +17,27 @@ const PlayerSelect: React.FC<PlayerSelectProps> = ({
 }) => {
   if (Platform.OS === "web") {
     return (
-<select
-  value={value ?? ""}
-  onChange={(e) => onChange(Number(e.target.value))}
-  disabled={disabled}
-  style={{
-    width:60,      // controla a largura
-    fontSize: 14,       // tamanho da fonte
-    padding: "4px 8px", // espaçamento interno
-    color: "#f0f0f0",
-    backgroundColor: "#2b2c3b",
-  }}
->
-  <option value="" disabled>
-    Jogador
-  </option>
-  {options.map((option) => (
-    <option key={option.id} value={option.id}>
-      {option.name}
-    </option>
-  ))}
-</select>
-
+      <select
+        value={value ?? ""}
+        onChange={(e) => onChange(Number(e.target.value))}
+        disabled={disabled}
+        style={{
+          width: 60, // controla a largura
+          fontSize: 14, // tamanho da fonte
+          padding: "4px 8px", // espaçamento interno
+          color: "#f0f0f0",
+          backgroundColor: "#2b2c3b",
+        }}
+      >
+        <option value="" disabled>
+          Jogador
+        </option>
+        {options.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.name}
+          </option>
+        ))}
+      </select>
     );
   }
 

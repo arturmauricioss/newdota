@@ -6,7 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { updateMeta } from "../../public/data/services/metaService";
 import { addPlayer } from "../../public/data/services/playerService";

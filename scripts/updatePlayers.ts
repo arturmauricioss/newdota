@@ -4,7 +4,6 @@ import path from "path";
 
 import { playerNames as players } from "../public/data/utils/playerNames";
 
-
 const outputDir = path.join(__dirname, "../public/data/players");
 
 async function fetchPlayerData(id: number) {

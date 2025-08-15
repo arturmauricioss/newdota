@@ -1,10 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-  Text
-} from "react-native";
+import { Dimensions, SafeAreaView, ScrollView, Text } from "react-native";
 import { draftStyles as styles } from "../style/draftstyle";
 
 import { loadHeroMeta } from "../../public/data/utils/loadHeroMeta";
@@ -25,7 +20,7 @@ import {
   RankedHero,
   SlotSelection,
   SynergyEntry,
-  SynergyMatrix
+  SynergyMatrix,
 } from "../../types";
 
 const screenWidth = Dimensions.get("window").width;
@@ -51,14 +46,11 @@ const getSynergyScore = (
   }, 0);
 };
 
-
 const extractHeroIdFromImg = (imgUrl: string, heroMeta: HeroMeta[]): number => {
   const relPath = imgUrl.replace("https://cdn.cloudflare.steamstatic.com", "");
   const heroEntry = heroMeta.find((h) => h.img === relPath);
   return heroEntry?.id ?? 0;
 };
-
-
 
 const getSortedHeroImages = (
   heroMeta: HeroMeta[],
@@ -68,20 +60,23 @@ const getSortedHeroImages = (
   players: PlayerProfile[],
   selectedSlot: SlotSelection | null
 ): RankedHero[] => {
-  const maxScore = Math.max(...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0)));
-  const minScore = Math.min(...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0)));
+  const maxScore = Math.max(
+    ...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0))
+  );
+  const minScore = Math.min(
+    ...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0))
+  );
 
   const rawHeroes = (heroMeta as HeroMeta[]).map((hero) => {
     const heroId = hero.id;
     const synergyWithAlly = getSynergyScore(heroId, allyTeam, "with", heroMeta);
     const synergyVsEnemy = getSynergyScore(heroId, enemyTeam, "vs", heroMeta);
     const synergyVsBans = -getSynergyScore(heroId, bans, "vs", heroMeta);
-    const totalSynergy = synergyWithAlly + synergyVsEnemy + synergyVsBans/2;
+    const totalSynergy = synergyWithAlly + synergyVsEnemy + synergyVsBans / 2;
     const rawMetaScore = (hero.pro_pick ?? 0) + (hero.pro_ban ?? 0);
-const normalizedMeta = normalizeMetaScore(rawMetaScore, maxScore);
+    const normalizedMeta = normalizeMetaScore(rawMetaScore, maxScore);
 
-const RP = calculateRP(hero.pub_pick, hero.pub_win);
-
+    const RP = calculateRP(hero.pub_pick, hero.pub_win);
 
     let playerRP = 0;
     if (selectedSlot?.type === "ally" && selectedSlot.playerId !== undefined) {
@@ -91,32 +86,37 @@ const RP = calculateRP(hero.pub_pick, hero.pub_win);
       }
     }
 
-  const finalScore = (normalizedMeta * 2 + totalSynergy * 3 + playerRP * 5) / 10;
+    const finalScore =
+      (normalizedMeta * 2 + totalSynergy * 3 + playerRP * 5) / 10;
 
-  return {
-    name: hero.name,
-    img: `https://cdn.cloudflare.steamstatic.com${hero.img}`,
-    winRate: hero.pub_pick > 0 ? hero.pub_win / hero.pub_pick : 0,
-    metaScore: normalizedMeta,
-    synergyWithAlly,
-    synergyVsEnemy,
-    synergyFromBans: synergyVsBans,
-    totalSynergy,
-    finalScore,
-    displayScore: normalizedMeta.toFixed(1),
-    playerRP,
-    localized_name: hero.localized_name,
-  };
-});
+    return {
+      name: hero.name,
+      img: `https://cdn.cloudflare.steamstatic.com${hero.img}`,
+      winRate: hero.pub_pick > 0 ? hero.pub_win / hero.pub_pick : 0,
+      metaScore: normalizedMeta,
+      synergyWithAlly,
+      synergyVsEnemy,
+      synergyFromBans: synergyVsBans,
+      totalSynergy,
+      finalScore,
+      displayScore: normalizedMeta.toFixed(1),
+      playerRP,
+      localized_name: hero.localized_name,
+    };
+  });
 
   return rawHeroes.sort((a, b) => b.finalScore - a.finalScore);
 };
 
 export default function DraftPage() {
   const [heroMeta, setHeroMeta] = useState<HeroMeta[]>([]);
-const [players, setPlayers] = useState<PlayerProfile[]>(defaultPlayers);
-  const [allyTeam, setAllyTeam] = useState<(string | null)[]>(defaultNullArray(5));
-  const [enemyTeam, setEnemyTeam] = useState<(string | null)[]>(defaultNullArray(5));
+  const [players, setPlayers] = useState<PlayerProfile[]>(defaultPlayers);
+  const [allyTeam, setAllyTeam] = useState<(string | null)[]>(
+    defaultNullArray(5)
+  );
+  const [enemyTeam, setEnemyTeam] = useState<(string | null)[]>(
+    defaultNullArray(5)
+  );
   const [bans, setBans] = useState<(string | null)[]>(defaultNullArray(10));
   const [selectedSlot, setSelectedSlot] = useState<SlotSelection | null>(null);
   const [baseRankedHeroes, setBaseRankedHeroes] = useState<RankedHero[]>([]);
@@ -128,19 +128,17 @@ const [players, setPlayers] = useState<PlayerProfile[]>(defaultPlayers);
     name,
   }));
 
-const rawSuggestions = getHeroSuggestions({
-  allyTeam,
-  enemyTeam,
-  bans,
-  slotIndex: selectedSlot,
-  players,
-});
+  const rawSuggestions = getHeroSuggestions({
+    allyTeam,
+    enemyTeam,
+    bans,
+    slotIndex: selectedSlot,
+    players,
+  });
 
-const usedHeroes = new Set([
-  ...allyTeam,
-  ...enemyTeam,
-  ...bans,
-].filter(Boolean)); // remove nulls
+  const usedHeroes = new Set(
+    [...allyTeam, ...enemyTeam, ...bans].filter(Boolean)
+  ); // remove nulls
 
   const sortedHeroes = useMemo(() => {
     const sorted = [...baseRankedHeroes].sort((a, b) => {
@@ -151,30 +149,34 @@ const usedHeroes = new Set([
         return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
       }
 
-      return sortAsc ? Number(valA) - Number(valB) : Number(valB) - Number(valA);
+      return sortAsc
+        ? Number(valA) - Number(valB)
+        : Number(valB) - Number(valA);
     });
     return sorted;
   }, [baseRankedHeroes, sortKey, sortAsc]);
 
-useEffect(() => {
-  const fetchAndRankHeroes = async () => {
-const meta = await loadHeroMeta();
-setHeroMeta(meta);
-const ranked = getSortedHeroImages(meta, allyTeam, enemyTeam, bans, players, selectedSlot);
-setBaseRankedHeroes(ranked);
+  useEffect(() => {
+    const fetchAndRankHeroes = async () => {
+      const meta = await loadHeroMeta();
+      setHeroMeta(meta);
+      const ranked = getSortedHeroImages(
+        meta,
+        allyTeam,
+        enemyTeam,
+        bans,
+        players,
+        selectedSlot
+      );
+      setBaseRankedHeroes(ranked);
+    };
 
-  };
+    fetchAndRankHeroes();
+  }, [allyTeam, enemyTeam, bans, players, selectedSlot]);
 
-  fetchAndRankHeroes();
-}, [allyTeam, enemyTeam, bans, players, selectedSlot]);
-
-
-const suggestions: RankedHero[] = sortedHeroes.filter(
-  (hero) => rawSuggestions.includes(hero.name) && !usedHeroes.has(hero.img)
-
-
-);
-
+  const suggestions: RankedHero[] = sortedHeroes.filter(
+    (hero) => rawSuggestions.includes(hero.name) && !usedHeroes.has(hero.img)
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -194,15 +196,15 @@ const suggestions: RankedHero[] = sortedHeroes.filter(
           type="ally"
           title="Time Aliado"
           onSelect={(index) => {
-    if (allyTeam[index]) {
-      const newTeam = [...allyTeam];
-      newTeam[index] = null;
-      setAllyTeam(newTeam);
-      setSelectedSlot(null); // opcional: desmarcar slot
-    } else {
-      setSelectedSlot({ type: "ally", index, playerId: index });
-    }
-  }}
+            if (allyTeam[index]) {
+              const newTeam = [...allyTeam];
+              newTeam[index] = null;
+              setAllyTeam(newTeam);
+              setSelectedSlot(null); // opcional: desmarcar slot
+            } else {
+              setSelectedSlot({ type: "ally", index, playerId: index });
+            }
+          }}
           styles={styles}
         />
 
@@ -211,50 +213,50 @@ const suggestions: RankedHero[] = sortedHeroes.filter(
           type="enemy"
           title="Time Inimigo"
           onSelect={(index) => {
-    if (enemyTeam[index]) {
-      const newTeam = [...enemyTeam];
-      newTeam[index] = null;
-      setEnemyTeam(newTeam);
-      setSelectedSlot(null);
-    } else {
-      setSelectedSlot({ type: "enemy", index, playerId: index });
-    }
-  }}
+            if (enemyTeam[index]) {
+              const newTeam = [...enemyTeam];
+              newTeam[index] = null;
+              setEnemyTeam(newTeam);
+              setSelectedSlot(null);
+            } else {
+              setSelectedSlot({ type: "enemy", index, playerId: index });
+            }
+          }}
           styles={styles}
         />
 
         <BanSelector
           bans={bans}
           onSelect={(index) => {
-    if (bans[index]) {
-      const newBans = [...bans];
-      newBans[index] = null;
-      setBans(newBans);
-      setSelectedSlot(null);
-    } else {
-      setSelectedSlot({ type: "ban", index, playerId: index });
-    }
-  }}
+            if (bans[index]) {
+              const newBans = [...bans];
+              newBans[index] = null;
+              setBans(newBans);
+              setSelectedSlot(null);
+            } else {
+              setSelectedSlot({ type: "ban", index, playerId: index });
+            }
+          }}
           styles={styles}
         />
-<HeroSuggestions
-  players={players}
-  allyTeam={allyTeam}
-  enemyTeam={enemyTeam}
-  bans={bans}
-  selectedSlot={selectedSlot}
-  sortedHeroes={sortedHeroes}
-  suggestions={suggestions}
-  sortKey={sortKey}
-  setSortKey={setSortKey}
-  sortAsc={sortAsc}
-  setSortAsc={setSortAsc}
-  styles={styles}
-  calculateRP={calculateRP}
-    setAllyTeam={setAllyTeam}
-  setEnemyTeam={setEnemyTeam}
-  setBans={setBans}
-/>
+        <HeroSuggestions
+          players={players}
+          allyTeam={allyTeam}
+          enemyTeam={enemyTeam}
+          bans={bans}
+          selectedSlot={selectedSlot}
+          sortedHeroes={sortedHeroes}
+          suggestions={suggestions}
+          sortKey={sortKey}
+          setSortKey={setSortKey}
+          sortAsc={sortAsc}
+          setSortAsc={setSortAsc}
+          styles={styles}
+          calculateRP={calculateRP}
+          setAllyTeam={setAllyTeam}
+          setEnemyTeam={setEnemyTeam}
+          setBans={setBans}
+        />
       </ScrollView>
     </SafeAreaView>
   );

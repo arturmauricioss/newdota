@@ -2,7 +2,6 @@ import React from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
 import { RankedHero } from "../types";
 
-
 export const HeroRow = ({
   hero,
   onSelect,

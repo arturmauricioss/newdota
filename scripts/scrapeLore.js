@@ -61,7 +61,9 @@ const fetchLoreFromMainPage = async (wikiName) => {
 
     // Fallback: busca lore na célula com estilo italic
     if (!loreText) {
-      const loreCell = $("div[style*='display:table-cell'][style*='font-style: italic']");
+      const loreCell = $(
+        "div[style*='display:table-cell'][style*='font-style: italic']"
+      );
       if (loreCell.length > 0) {
         loreText = loreCell
           .html()
@@ -80,7 +82,10 @@ const fetchLoreFromMainPage = async (wikiName) => {
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const cleanText = (text) =>
-  text.replace(/\n{3,}/g, "\n\n").replace(/\s+\n/g, "\n").trim();
+  text
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/\s+\n/g, "\n")
+    .trim();
 
 const run = async () => {
   const loreData = {};
@@ -91,7 +96,9 @@ const run = async () => {
 
     let lore = await fetchLoreFromSubpage(wikiName);
     if (!lore) {
-      console.log(`↪️ Tentando buscar lore na página principal de ${hero.localized_name}...`);
+      console.log(
+        `↪️ Tentando buscar lore na página principal de ${hero.localized_name}...`
+      );
       lore = await fetchLoreFromMainPage(wikiName);
     }
 
@@ -104,7 +111,11 @@ const run = async () => {
     await delay(1500); // respeita o servidor
   }
 
-  fs.writeFileSync("assets/hero_lore.json", JSON.stringify(loreData, null, 2), "utf-8");
+  fs.writeFileSync(
+    "assets/hero_lore.json",
+    JSON.stringify(loreData, null, 2),
+    "utf-8"
+  );
   console.log("✅ Lore salva em assets/hero_lore.json");
 };
 

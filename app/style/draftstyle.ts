@@ -9,7 +9,7 @@ export const totalTableWidth =
   // 40 + // Sinergia
   40 + // Aliado
   40 + // Inimigo
-  40;  // Bans
+  40; // Bans
 
 export const draftStyles = StyleSheet.create({
   safeArea: {
@@ -48,7 +48,6 @@ export const draftStyles = StyleSheet.create({
     margin: 1,
     width: "18%",
     marginHorizontal: 2,
-    
   },
   banSection: {
     flexDirection: "row",
@@ -168,7 +167,6 @@ export const draftStyles = StyleSheet.create({
     height: 32,
     marginRight: 8,
     borderRadius: 4,
-
   },
   heroName: {
     fontSize: 14,
@@ -179,12 +177,10 @@ export const draftStyles = StyleSheet.create({
     minWidth: totalTableWidth,
     alignSelf: "center", // centraliza dentro do pai
   },
-synergyItem: {
-  width: "15%",
-  alignItems: "flex-start",
-  marginBottom: 0,
-  marginHorizontal: 8,
-},
-
-
+  synergyItem: {
+    width: "15%",
+    alignItems: "flex-start",
+    marginBottom: 0,
+    marginHorizontal: 8,
+  },
 });

@@ -1,3 +1,3 @@
-import DraftPage from './draft';
+import DraftPage from "./draft";
 
 export default DraftPage;

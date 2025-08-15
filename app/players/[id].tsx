@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
 import { getPlayerStats } from "../../public/data/services/playerService";
@@ -17,13 +17,7 @@ import { loadHeroMeta } from "../../public/data/utils/loadHeroMeta";
 import { normalizeMetaScore } from "../../public/data/utils/normalize";
 import { playerNames } from "../../public/data/utils/playerNames";
 
-import {
-  HeroInfo,
-  HeroStats,
-  MetaInfo,
-  RawHero,
-  SortKey
-} from "../../types";
+import { HeroInfo, HeroStats, MetaInfo, RawHero, SortKey } from "../../types";
 
 const heroesRaw = require("../../assets/heroes_with_images.json");
 
@@ -67,9 +61,7 @@ export default function PlayerDetails() {
         const rawScores: number[] = [];
 
         metaRaw.forEach((m: any) => {
-          const winRate = m.pub_pick
-            ? (m.pub_win / m.pub_pick) * 100
-            : 0;
+          const winRate = m.pub_pick ? (m.pub_win / m.pub_pick) * 100 : 0;
           const rawRM = (m.pro_pick ?? 0) + (m.pro_ban ?? 0);
           rawScores.push(rawRM);
 
@@ -100,15 +92,9 @@ export default function PlayerDetails() {
     }
   };
 
-  const calculateRF = (
-    games: number,
-    win: number,
-    meta?: MetaInfo
-  ) => {
+  const calculateRF = (games: number, win: number, meta?: MetaInfo) => {
     const RP = calculateRP(games, win);
-    const rawRM = meta
-      ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0)
-      : 0;
+    const rawRM = meta ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0) : 0;
     const RM = normalizeMetaScore(rawRM, maxRM);
     return (RP * 5 + RM * 2) / 7;
   };
@@ -124,11 +110,11 @@ export default function PlayerDetails() {
     const metaB = metaMap[b.hero_id];
 
     const RM_A = normalizeMetaScore(
-      (metaA ? (metaA.pro_pick ?? 0) + (metaA.pro_ban ?? 0) : 0),
+      metaA ? (metaA.pro_pick ?? 0) + (metaA.pro_ban ?? 0) : 0,
       maxRM
     );
     const RM_B = normalizeMetaScore(
-      (metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0),
+      metaB ? (metaB.pro_pick ?? 0) + (metaB.pro_ban ?? 0) : 0,
       maxRM
     );
 
@@ -138,9 +124,7 @@ export default function PlayerDetails() {
     if (sortKey === "name") {
       const nameA = heroes[a.hero_id]?.name ?? "";
       const nameB = heroes[b.hero_id]?.name ?? "";
-      return sortAsc
-        ? nameA.localeCompare(nameB)
-        : nameB.localeCompare(nameA);
+      return sortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
     }
 
     let valA = 0;
@@ -184,25 +168,25 @@ export default function PlayerDetails() {
         ) : (
           <View style={styles.tableContainer}>
             <View style={styles.headerRow}>
-              {(["name", "winRate", "RP", "RM", "RF"] as SortKey[]).map((key) => (
-                <TouchableOpacity
-                  key={key}
-                  style={styles.headerCell}
-                  onPress={() => handleSort(key)}
-                >
-                  <Text style={styles.headerText}>
-                    {key === "name" ? "Herói" : key.toUpperCase()}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+              {(["name", "winRate", "RP", "RM", "RF"] as SortKey[]).map(
+                (key) => (
+                  <TouchableOpacity
+                    key={key}
+                    style={styles.headerCell}
+                    onPress={() => handleSort(key)}
+                  >
+                    <Text style={styles.headerText}>
+                      {key === "name" ? "Herói" : key.toUpperCase()}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              )}
             </View>
 
             {sortedStats.map((item) => {
               const hero = heroes[item.hero_id];
               const meta = metaMap[item.hero_id];
-              const winRateRaw = item.games
-                ? item.win / item.games
-                : 0.5;
+              const winRateRaw = item.games ? item.win / item.games : 0.5;
               const RP = calculateRP(item.games, item.win);
               const rawRM = meta
                 ? (meta.pro_pick ?? 0) + (meta.pro_ban ?? 0)
@@ -221,15 +205,9 @@ export default function PlayerDetails() {
                   <Text style={styles.cell}>
                     {(winRateRaw * 100).toFixed(0)}%
                   </Text>
-                  <Text style={styles.cell}>
-                    {RP.toFixed(1)}
-                  </Text>
-                  <Text style={styles.cell}>
-                    {RM.toFixed(1)}
-                  </Text>
-                  <Text style={styles.cell}>
-                    {RF.toFixed(1)}
-                  </Text>
+                  <Text style={styles.cell}>{RP.toFixed(1)}</Text>
+                  <Text style={styles.cell}>{RM.toFixed(1)}</Text>
+                  <Text style={styles.cell}>{RF.toFixed(1)}</Text>
                 </View>
               );
             })}

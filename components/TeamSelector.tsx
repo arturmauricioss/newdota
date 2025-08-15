@@ -20,10 +20,7 @@ export const TeamSelector = ({
     <View style={styles.teamRow}>
       {team.map((hero, i) => (
         <View key={`${type}-${i}`} style={styles.slotWrapper}>
-          <HeroSlot
-            hero={hero}
-            onSelect={() => onSelect(i)}
-          />
+          <HeroSlot hero={hero} onSelect={() => onSelect(i)} />
         </View>
       ))}
     </View>

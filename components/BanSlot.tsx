@@ -11,9 +11,7 @@ export default function HeroSlot({ hero, onSelect }: Props) {
       {hero ? (
         <Image source={{ uri: hero }} style={styles.image} />
       ) : (
-
         <View style={[styles.placeholder, { backgroundColor: "#5f2f2f" }]} />
-
       )}
     </TouchableOpacity>
   );
@@ -22,5 +20,5 @@ export default function HeroSlot({ hero, onSelect }: Props) {
 const styles = StyleSheet.create({
   slot: { width: 60, height: 60, margin: 1 },
   image: { width: "100%", height: "100%", borderRadius: 8 },
-  placeholder: { flex: 1, backgroundColor: "#444", borderRadius: 8 }
+  placeholder: { flex: 1, backgroundColor: "#444", borderRadius: 8 },
 });
