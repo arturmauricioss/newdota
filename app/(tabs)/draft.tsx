@@ -2,18 +2,19 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, SafeAreaView, ScrollView, Text } from "react-native";
 import { draftStyles as styles } from "../style/draftstyle";
 
+import playersData from "../../assets/data/players/players.json";
+import synergyMatrix from "../../assets/synergyMatrix.json";
 import { loadHeroMeta } from "../../public/data/utils/loadHeroMeta";
 
-import synergyMatrix from "../../assets/synergyMatrix.json";
 import { BanSelector } from "../../components/BanSelector";
 import { HeroSuggestions } from "../../components/HeroSuggestions";
 import { PlayersSection } from "../../components/PlayersSection";
 import { TeamSelector } from "../../components/TeamSelector";
 import { calculateRP } from "../../public/data/utils/calculateRP";
-import { normalizeMetaScore } from "../../public/data/utils/normalize";
-
 import { getHeroSuggestions } from "../../public/data/utils/draftLogic";
+import { normalizeMetaScore } from "../../public/data/utils/normalize";
 import { playerNames } from "../../public/data/utils/playerNames";
+
 import {
   HeroMeta,
   PlayerProfile,
@@ -67,7 +68,7 @@ const getSortedHeroImages = (
     ...heroMeta.map((h) => (h.pro_pick ?? 0) + (h.pro_ban ?? 0))
   );
 
-  const rawHeroes = (heroMeta as HeroMeta[]).map((hero) => {
+  const rawHeroes = heroMeta.map((hero) => {
     const heroId = hero.id;
     const synergyWithAlly = getSynergyScore(heroId, allyTeam, "with", heroMeta);
     const synergyVsEnemy = getSynergyScore(heroId, enemyTeam, "vs", heroMeta);
@@ -107,7 +108,6 @@ const getSortedHeroImages = (
 
   return rawHeroes.sort((a, b) => b.finalScore - a.finalScore);
 };
-
 export default function DraftPage() {
   const [heroMeta, setHeroMeta] = useState<HeroMeta[]>([]);
   const [players, setPlayers] = useState<PlayerProfile[]>(defaultPlayers);
@@ -138,7 +138,7 @@ export default function DraftPage() {
 
   const usedHeroes = new Set(
     [...allyTeam, ...enemyTeam, ...bans].filter(Boolean)
-  ); // remove nulls
+  );
 
   const sortedHeroes = useMemo(() => {
     const sorted = [...baseRankedHeroes].sort((a, b) => {
@@ -177,87 +177,89 @@ export default function DraftPage() {
   const suggestions: RankedHero[] = sortedHeroes.filter(
     (hero) => rawSuggestions.includes(hero.name) && !usedHeroes.has(hero.img)
   );
-
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>AvaDrafter</Text>
+  <SafeAreaView style={styles.safeArea}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>AvaDrafter</Text>
 
-        <PlayersSection
-          players={players}
-          setPlayers={setPlayers}
-          availablePlayers={availablePlayers}
-          styles={styles}
-          calculateRP={calculateRP}
-        />
+      <PlayersSection
+        players={players}
+        setPlayers={setPlayers}
+        availablePlayers={availablePlayers}
+        styles={styles}
+        calculateRP={calculateRP}
+        playersData={playersData}
+      />
 
-        <TeamSelector
-          team={allyTeam}
-          type="ally"
-          title="Time Aliado"
-          onSelect={(index) => {
-            if (allyTeam[index]) {
-              const newTeam = [...allyTeam];
-              newTeam[index] = null;
-              setAllyTeam(newTeam);
-              setSelectedSlot(null); // opcional: desmarcar slot
-            } else {
-              setSelectedSlot({ type: "ally", index, playerId: index });
-            }
-          }}
-          styles={styles}
-        />
+      <TeamSelector
+        team={allyTeam}
+        type="ally"
+        title="Time Aliado"
+        onSelect={(index) => {
+          if (allyTeam[index]) {
+            const newTeam = [...allyTeam];
+            newTeam[index] = null;
+            setAllyTeam(newTeam);
+            setSelectedSlot(null);
+          } else {
+            setSelectedSlot({ type: "ally", index, playerId: index });
+          }
+        }}
+        styles={styles}
+      />
 
-        <TeamSelector
-          team={enemyTeam}
-          type="enemy"
-          title="Time Inimigo"
-          onSelect={(index) => {
-            if (enemyTeam[index]) {
-              const newTeam = [...enemyTeam];
-              newTeam[index] = null;
-              setEnemyTeam(newTeam);
-              setSelectedSlot(null);
-            } else {
-              setSelectedSlot({ type: "enemy", index, playerId: index });
-            }
-          }}
-          styles={styles}
-        />
+      <TeamSelector
+        team={enemyTeam}
+        type="enemy"
+        title="Time Inimigo"
+        onSelect={(index) => {
+          if (enemyTeam[index]) {
+            const newTeam = [...enemyTeam];
+            newTeam[index] = null;
+            setEnemyTeam(newTeam);
+            setSelectedSlot(null);
+          } else {
+            setSelectedSlot({ type: "enemy", index, playerId: index });
+          }
+        }}
+        styles={styles}
+      />
 
-        <BanSelector
-          bans={bans}
-          onSelect={(index) => {
-            if (bans[index]) {
-              const newBans = [...bans];
-              newBans[index] = null;
-              setBans(newBans);
-              setSelectedSlot(null);
-            } else {
-              setSelectedSlot({ type: "ban", index, playerId: index });
-            }
-          }}
-          styles={styles}
-        />
-        <HeroSuggestions
-          players={players}
-          allyTeam={allyTeam}
-          enemyTeam={enemyTeam}
-          bans={bans}
-          selectedSlot={selectedSlot}
-          sortedHeroes={sortedHeroes}
-          suggestions={suggestions}
-          sortKey={sortKey}
-          setSortKey={setSortKey}
-          sortAsc={sortAsc}
-          setSortAsc={setSortAsc}
-          styles={styles}
-          calculateRP={calculateRP}
-          setAllyTeam={setAllyTeam}
-          setEnemyTeam={setEnemyTeam}
-          setBans={setBans}
-        />
-      </ScrollView>
-    </SafeAreaView>
-  );
+      <BanSelector
+        bans={bans}
+        onSelect={(index) => {
+          if (bans[index]) {
+            const newBans = [...bans];
+            newBans[index] = null;
+            setBans(newBans);
+            setSelectedSlot(null);
+          } else {
+            setSelectedSlot({ type: "ban", index, playerId: index });
+          }
+        }}
+        styles={styles}
+      />
+
+      <HeroSuggestions
+        players={players}
+        allyTeam={allyTeam}
+        enemyTeam={enemyTeam}
+        bans={bans}
+        selectedSlot={selectedSlot}
+        sortedHeroes={sortedHeroes}
+        suggestions={suggestions}
+        sortKey={sortKey}
+        setSortKey={setSortKey}
+        sortAsc={sortAsc}
+        setSortAsc={setSortAsc}
+        styles={styles}
+        calculateRP={calculateRP}
+        setAllyTeam={setAllyTeam}
+        setEnemyTeam={setEnemyTeam}
+        setBans={setBans}
+      />
+    </ScrollView>
+  </SafeAreaView>
+);
 }
+export default DraftPage;

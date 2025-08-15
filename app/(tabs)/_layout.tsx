@@ -1,32 +1,32 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Dimensions, Platform } from "react-native";
+import { Dimensions } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context"; // ✅ Importa os insets
 
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+
 const screenWidth = Dimensions.get("window").width;
 const dynamicFontSize = screenWidth < 768 ? 10 : 12;
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const insets = useSafeAreaInsets(); // ✅ Usa os insets aqui
 
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-        // tabBarButton: HapticTab, // ❌ comenta para testar
         tabBarBackground: TabBarBackground,
         tabBarLabelStyle: {
           fontSize: dynamicFontSize,
           textAlign: "center",
         },
         tabBarStyle: {
-          height: 70,
-          width: "100%",
-          justifyContent: "center",
-          paddingBottom: Platform.OS === "android" ? 0 : 0,
-          paddingTop: Platform.OS === "android" ? 0 : 0,
+          height: 70 + insets.bottom, // ✅ aumenta a altura
+          paddingBottom: insets.bottom, // ✅ respeita a área segura
           backgroundColor: "#1e1e2f",
           borderTopWidth: 1,
         },
@@ -39,7 +39,6 @@ export default function TabLayout() {
           tabBarIcon: () => null,
         }}
       />
-
       <Tabs.Screen
         name="heroes"
         options={{
@@ -47,7 +46,6 @@ export default function TabLayout() {
           tabBarIcon: () => null,
         }}
       />
-
       <Tabs.Screen
         name="meta"
         options={{
@@ -73,7 +71,7 @@ export default function TabLayout() {
         name="index"
         options={{
           href: null,
-          tabBarIcon: () => null, // ❌ remove da tab bar
+          tabBarIcon: () => null,
         }}
       />
     </Tabs>

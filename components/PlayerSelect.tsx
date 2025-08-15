@@ -21,13 +21,7 @@ const PlayerSelect: React.FC<PlayerSelectProps> = ({
         value={value ?? ""}
         onChange={(e) => onChange(Number(e.target.value))}
         disabled={disabled}
-        style={{
-          width: 60, // controla a largura
-          fontSize: 14, // tamanho da fonte
-          padding: "4px 8px", // espaçamento interno
-          color: "#f0f0f0",
-          backgroundColor: "#2b2c3b",
-        }}
+        style={webStyles.select}
       >
         <option value="" disabled>
           Jogador
@@ -44,7 +38,7 @@ const PlayerSelect: React.FC<PlayerSelectProps> = ({
   // Versão para mobile (Android/iOS)
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>jogador</Text>
+      <Text style={styles.label}>Jogador</Text>
       <Picker
         selectedValue={value ?? ""}
         onValueChange={(itemValue) => onChange(Number(itemValue))}
@@ -74,11 +68,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#2b2c3b",
     color: "#f0f0f0",
   },
-  "player-select": {
-    width: "15%",
-    padding: 8,
-    backgroundColor: "#2b2c3b",
-    color: "#f0f0f0",
-    borderRadius: 4,
-  },
 });
+
+const webStyles = {
+  select: {
+    width: 60,
+    fontSize: 14,
+    padding: "4px 8px",
+    color: "#f0f0f0",
+    backgroundColor: "#2b2c3b",
+    borderRadius: 4,
+    border: "none",
+    appearance: "none" as const,
+  },
+};
