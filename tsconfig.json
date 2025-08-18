@@ -1,16 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "module": "NodeNext", // ← ajustado
-    "target": "ES2020",
-    "moduleResolution": "NodeNext", // ← compatível
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true, 
-    "strict": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "module": "NodeNext",
+    "target": "ES2020",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "strict": true
   },
   "include": [
     "**/*.ts",
