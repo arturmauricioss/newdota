@@ -25,8 +25,8 @@ export default function TabLayout() {
           textAlign: "center",
         },
         tabBarStyle: {
-          height: 70 + insets.bottom, // ✅ aumenta a altura
-          paddingBottom: insets.bottom, // ✅ respeita a área segura
+          height: 70 + insets.bottom, 
+          paddingBottom: insets.bottom,
           backgroundColor: "#1e1e2f",
           borderTopWidth: 1,
         },
