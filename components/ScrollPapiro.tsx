@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   text: {
-    fontFamily: "Ringbearer",
+    // fontFamily: "Ringbearer",
     color: "#3e2f1c",
     fontSize: 14,
     lineHeight: 18,

@@ -1,22 +1,40 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    },
+    // permite top-level await e ESModules
+    "target": "es2022",
     "module": "NodeNext",
-    "target": "ES2020",
     "moduleResolution": "NodeNext",
+
+    // JSX e JavaScript no RN
+    "jsx": "react-native",
+    "allowJs": true,
+
+    // interoperabilidade e resolução de JSON
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "strict": true
+
+    // verificação estrita
+    "strict": true,
+
+    // aliases para @/… 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
+
+  // grita tudo que é TS/TSX nos seus diretórios principais
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+  ],
+
+  // ignora módulos externos
+  "exclude": ["node_modules"]
 }
