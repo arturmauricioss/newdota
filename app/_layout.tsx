@@ -1,5 +1,3 @@
-// app/_layout.tsx
-
 import {
   DarkTheme,
   DefaultTheme,
@@ -13,11 +11,8 @@ import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-// Ajuste para o caminho real do seu services
-import { analytics, auth, db } from "../public/data/services";
-
-// Se você estiver usando o SDK Web, pode importar estes tipos:
-// import type { QuerySnapshot, DocumentData } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore"; // apenas para Web SDK
+import { analytics, auth, db } from "../public/data/services/firebase";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -27,22 +22,19 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    if (!auth || !db) return;
+
     auth
       .signInAnonymously()
       .catch((err: any) => {
         console.error("Firebase auth error:", err);
       });
 
-    db.collection("matches")
-      .get()
-      .then(
-        // Se quiser usar tipos do SDK Web:
-        // (snap: QuerySnapshot<DocumentData>) => console.log("matches:", snap.size)
-        (snap: any) => {
-          console.log("matches count:", snap.size);
-        }
-      )
-      .catch((err: any) => {
+    getDocs(collection(db, "matches"))
+      .then((snap) => {
+        console.log("matches count:", snap.size);
+      })
+      .catch((err) => {
         console.error("Firestore error:", err);
       });
 

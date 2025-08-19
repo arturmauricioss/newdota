@@ -1,28 +1,25 @@
-// app/(tabs)/_layout.tsx
-
 import { Tabs } from "expo-router";
 import React, { useEffect } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
-// Inicializa o core do Firebase
-import "@react-native-firebase/app";
-// Import do Firestore  
+// Firebase Native SDK
 import firestore from "@react-native-firebase/firestore";
 
 const screenWidth = Dimensions.get("window").width;
 const dynamicFontSize = screenWidth < 768 ? 10 : 12;
 
 export default function TabLayout() {
-  // Ativa persistência offline do Firestore
   useEffect(() => {
-    firestore()
-      .settings({ persistence: true })
-      .catch((err) => console.warn("Firestore persistence error:", err));
+    if (Platform.OS !== "web") {
+      firestore()
+        .settings({ persistence: true })
+        .catch((err) => console.warn("Firestore persistence error:", err));
+    }
   }, []);
 
   const colorScheme = useColorScheme();

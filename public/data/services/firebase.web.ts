@@ -1,5 +1,3 @@
-// public/data/services/firebase.web.ts
-
 import { getAnalytics as getFirebaseAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
@@ -8,20 +6,17 @@ import firebaseConfig from "./firebaseConfig";
 
 const app = initializeApp(firebaseConfig);
 
-// Analytics só em ambiente browser e se tiver measurementId
-export const analytics = (
-  typeof window !== "undefined" &&
-  firebaseConfig.measurementId
-)
+const isBrowser = typeof window !== "undefined";
+
+export const analytics = isBrowser && firebaseConfig.measurementId
   ? getFirebaseAnalytics(app)
   : {
       logEvent: (_eventName: string, _params?: Record<string, any>) =>
         Promise.resolve(),
     };
 
-// Auth e Firestore funcionam normalmente no web
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const auth = isBrowser ? getAuth(app) : undefined;
+export const db = isBrowser ? getFirestore(app) : undefined;
 
 export { app };
 
