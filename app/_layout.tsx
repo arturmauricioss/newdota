@@ -7,11 +7,13 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
+import { Text } from "react-native";
 import "react-native-reanimated";
+
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { collection, getDocs } from "firebase/firestore"; // apenas para Web SDK
+import { collection, getDocs } from "firebase/firestore";
 import { analytics, auth, db } from "../public/data/services/firebase";
 
 export default function RootLayout() {
@@ -22,14 +24,22 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (!auth || !db) return;
+    if (typeof window === "undefined") {
+      console.log("SSR detected — skipping Firebase init");
+      return;
+    }
 
-    auth
-      .signInAnonymously()
-      .catch((err: any) => {
-        console.error("Firebase auth error:", err);
-      });
+    if (!auth || !db) {
+      console.log("Firebase not ready");
+      return;
+    }
 
+    console.log("Starting Firebase auth...");
+    auth.signInAnonymously().catch((err: any) => {
+      console.error("Firebase auth error:", err);
+    });
+
+    console.log("Fetching Firestore matches...");
     getDocs(collection(db, "matches"))
       .then((snap) => {
         console.log("matches count:", snap.size);
@@ -38,11 +48,13 @@ export default function RootLayout() {
         console.error("Firestore error:", err);
       });
 
+    console.log("Logging analytics...");
     analytics?.logEvent("app_open");
   }, []);
 
   if (!fontsLoaded) {
-    return null;
+    console.log("Fonts not loaded yet");
+    return <Text>Carregando fontes...</Text>;
   }
 
   return (
