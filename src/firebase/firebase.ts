@@ -1,13 +1,9 @@
-import type { FirebaseApp } from "firebase/app";
-import type { Auth } from "firebase/auth";
-import type { Firestore } from "firebase/firestore";
 import { Platform } from "react-native";
 
 type AnalyticsWrapper = {
   logEvent: (eventName: string, params?: Record<string, any>) => Promise<void>;
 };
 
-// Web SDK
 import {
   analytics as webAnalytics,
   app as webApp,
@@ -15,22 +11,18 @@ import {
   db as webDb,
 } from "./firebase.web";
 
-// Native SDK
 import {
   app as nativeApp,
   auth as nativeAuth,
   db as nativeDb,
 } from "./firebase.native";
+type AppInstance = typeof webApp | typeof nativeApp;
+type AuthInstance = typeof webAuth | typeof nativeAuth;
+type DBInstance = typeof webDb | typeof nativeDb;
 
-// Narrowing para garantir que não seja null/undefined
-export const app: FirebaseApp =
-  Platform.OS === "web" ? (webApp as FirebaseApp) : nativeApp;
-
-export const auth: Auth =
-  Platform.OS === "web" ? (webAuth as Auth) : nativeAuth;
-
-export const db: Firestore =
-  Platform.OS === "web" ? (webDb as Firestore) : nativeDb;
+export const app = Platform.OS === "web" ? webApp : nativeApp;
+export const auth = Platform.OS === "web" ? webAuth : nativeAuth;
+export const db = Platform.OS === "web" ? webDb : nativeDb;
 
 export const analytics: AnalyticsWrapper =
   Platform.OS === "web"
