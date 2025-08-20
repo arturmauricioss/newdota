@@ -13,7 +13,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useColorScheme } from "../hooks/useColorScheme";
 
 // 👉 importa só a função, sem expor unions de tipo
-import { signInAnonymously } from "@/firebase";
+import { signInAnonymously } from "../assets/firebase";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

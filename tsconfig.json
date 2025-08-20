@@ -21,7 +21,7 @@
     // aliases para @/… 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["assets/*"]
     }
   },
 

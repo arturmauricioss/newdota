@@ -1,9 +1,5 @@
 import { Platform } from "react-native";
 
-type AnalyticsWrapper = {
-  logEvent: (eventName: string, params?: Record<string, any>) => Promise<void>;
-};
-
 import {
   analytics as webAnalytics,
   app as webApp,
@@ -16,17 +12,10 @@ import {
   auth as nativeAuth,
   db as nativeDb,
 } from "./firebase.native";
-type AppInstance = typeof webApp | typeof nativeApp;
-type AuthInstance = typeof webAuth | typeof nativeAuth;
-type DBInstance = typeof webDb | typeof nativeDb;
 
 export const app = Platform.OS === "web" ? webApp : nativeApp;
 export const auth = Platform.OS === "web" ? webAuth : nativeAuth;
 export const db = Platform.OS === "web" ? webDb : nativeDb;
-
-export const analytics: AnalyticsWrapper =
-  Platform.OS === "web"
-    ? webAnalytics
-    : {
-        logEvent: async () => Promise.resolve(),
-      };
+export const analytics = Platform.OS === "web" ? webAnalytics : {
+  logEvent: async (_eventName: string, _params?: Record<string, any>) => {},
+};

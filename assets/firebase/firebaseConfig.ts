@@ -1,4 +1,4 @@
-// src/firebase/firebaseConfig.ts
+// assets/firebase/firebaseConfig.ts
 const {
   EXPO_PUBLIC_FIREBASE_API_KEY,
   EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,

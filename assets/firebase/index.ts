@@ -14,14 +14,11 @@ export async function signInAnonymously() {
     await authNative().signInAnonymously();
   }
 }
-
 export async function initFirestore() {
   if (Platform.OS === "web") {
     const { initializeApp } = await import("firebase/app");
-    const {
-      initializeFirestore,
-      persistentLocalCache,
-    } = await import("firebase/firestore");
+    const { initializeFirestore, persistentLocalCache } = await import("firebase/firestore");
+
     const app = initializeApp(firebaseConfig);
     initializeFirestore(app, { localCache: persistentLocalCache() });
   } else {

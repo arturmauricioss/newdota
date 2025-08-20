@@ -7,4 +7,3 @@ const auth = authModule();
 const db = firestoreModule();
 
 export { app, auth, db };
-
