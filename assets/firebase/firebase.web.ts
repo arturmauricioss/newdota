@@ -33,3 +33,5 @@ async function initFirebaseWeb() {
     }
   }
 }
+export { analytics, app, auth, db, initFirebaseWeb };
+

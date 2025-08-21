@@ -5,7 +5,7 @@ import {
   app as webApp,
   auth as webAuth,
   db as webDb,
-} from "./firebase.web";
+} from "../firebase/firebase.web";
 
 import {
   app as nativeApp,
