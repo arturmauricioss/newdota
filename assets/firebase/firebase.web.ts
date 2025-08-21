@@ -1,37 +1,20 @@
-import { getApp, getApps, initializeApp } from "firebase/app";
+// assets/firebase/firebase.web.ts
+import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import firebaseConfig from "./firebaseConfig";
-type AnalyticsType = {
-  logEvent: (eventName: string, params?: Record<string, any>) => Promise<void>;
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-let analytics: AnalyticsType = {
-  logEvent: async () => {},
-};
-
-let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
-
-let db: any = null;
-
-
-async function initFirebaseWeb() {
-  const { getFirestore } = await import("firebase/firestore");
-  const { getAnalytics, logEvent: logFirebaseEvent } = (await import("firebase/analytics")) as typeof import("firebase/analytics");
-
-  db = getFirestore(app);
-
-  if (location.protocol === "https:" && firebaseConfig.measurementId) {
-    try {
-      const nativeAnalytics = getAnalytics(app);
-      analytics = {
-        logEvent: (eventName: string, params?: Record<string, any>) =>
-          Promise.resolve(logFirebaseEvent(nativeAnalytics, eventName, params)),
-      };
-    } catch (err) {
-      console.warn("Analytics não pôde ser carregado:", err);
-    }
-  }
-}
-export { analytics, app, auth, db, initFirebaseWeb };
-
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const analytics = typeof window !== "undefined" ? getAnalytics(app) : undefined;

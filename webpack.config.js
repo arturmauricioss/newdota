@@ -1,10 +1,8 @@
-require("dotenv").config({ path: ".env.local" });
-console.log("📦 API KEY:", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
-
 const createExpoWebpackConfigAsync = require("@expo/webpack-config");
 const webpack = require("webpack");
+require("dotenv").config(); // sempre carregando .env
 
-module.exports = async (env, argv) => {
+module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
 
   config.plugins.push(
